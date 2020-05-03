@@ -1,0 +1,20 @@
+<div class="ui-g">
+    <form [formGroup]="form">
+        <!-- <ng-container *ngIf="fieldData.controlType == 'json'"> -->
+        <div [class]=" colspan ">
+            <p-accordion>
+                <p-accordionTab [header]="fieldData.label">
+                    <div class="ui-g" [ngStyle]="{'pointer-events':fieldData?.readonly == true ? 'none':''  }">
+                        <ng-container *ngFor="let field of fieldData.fields">
+                            <app-dynamic-form-right [fields]="field" [form]="form.controls[this.fieldData.key]">
+                            </app-dynamic-form-right>
+                        </ng-container>
+                    </div>
+
+                </p-accordionTab>
+            </p-accordion>
+        </div>
+        <!-- </ng-container> -->
+
+    </form>
+</div>

@@ -1,0 +1,28 @@
+<!-- <div [class]="class"> -->
+<div [class]="colspan">
+    <form [formGroup]="form">
+        <span *ngIf="fieldData?.validators?.required" style="color: red;">*</span>
+        <label>{{fieldData.label}}</label>
+        <i class="pi pi-info-circle" *ngIf="fieldData.description" [title]="fieldData.description"></i>&nbsp;
+        <p-calendar [formControlName]="fieldData.key" [showTime]="true" [maxDate]="maxDate"
+            [styleClass]="fieldData.styleClass" [style]="fieldData.style" [attr.readonly]="fieldData.readonly">
+        </p-calendar>
+    </form>
+
+    <div *ngIf="form.status === 'INVALID'">
+        <b *ngIf="form.controls[fieldData.key].errors !== null" style="color: red;">
+            <ng-container *ngIf="form.controls[fieldData.key].errors.min != null">
+                {{errorMsg?.min + fieldData?.validators?.min}}</ng-container>
+            <ng-container *ngIf="form.controls[fieldData.key].errors.max != null">
+                {{errorMsg?.max + fieldData?.validators?.max}} </ng-container>
+            <ng-container
+                *ngIf="form.controls[fieldData.key].touched && form.controls[fieldData.key].errors.required != null">
+                {{errorMsg?.required}}
+            </ng-container>
+            <ng-container *ngIf="form.controls[fieldData.key].errors.email != null">{{errorMsg?.email}} </ng-container>
+            <ng-container *ngIf="form.controls[fieldData.key].errors.pattern != null">{{errorMsg?.pattern}}
+            </ng-container>
+        </b>
+    </div>
+
+</div>

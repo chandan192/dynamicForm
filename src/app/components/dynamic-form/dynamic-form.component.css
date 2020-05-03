@@ -1,0 +1,29 @@
+:host>>>.ui-g {
+  display: block !important;
+}
+
+:host>>>.ui-fluid .ui-button {
+  width: auto;
+}
+
+:host>>>.ui-tabview-left>.ui-tabview-nav {
+  height: 100% !important;
+}
+
+:host>>>.ui-tabview.ui-tabview-left .ui-tabview-nav {
+  overflow-y: auto !important;
+}
+
+:host>>>.ui-tabview-left>.ui-tabview-nav {
+  width: 20% !important;
+}
+
+:host>>>.ui-tabview-left>.ui-tabview-panels {
+  width: 80% !important;
+}
+
+:host>>>.mat-badge-content {
+  pointer-events: unset;
+  font-size: inherit !important;
+  font-weight: 500;
+}

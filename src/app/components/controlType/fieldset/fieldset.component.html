@@ -1,0 +1,22 @@
+<div class="ui-g">
+
+    <p-fieldset>
+        <p-header>
+            <ng-container *ngIf="fieldData?.description">
+                <i class="pi pi-info-circle" style="font-size: large;
+    vertical-align: middle;" title=" {{fieldData.description}}"></i>
+            </ng-container>
+            {{fieldData.subFormName}}
+        </p-header>
+
+
+        <ng-container *ngFor="let i of fieldData.fields">
+
+            <!-- insert class here -->
+            <div class="ui-g-12 ui-lg-12" *ngIf="i.subFormName != undefined">
+                <app-fieldset [fields]="i" [form]="form.controls[fieldData.key]"></app-fieldset>
+            </div>
+            <app-dynamic-form-right [fields]="i" [form]="form.controls[fieldData.key]"></app-dynamic-form-right>
+        </ng-container>
+    </p-fieldset>
+</div>

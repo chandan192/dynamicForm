@@ -1,0 +1,23 @@
+:host>>>.mat-slider-horizontal .mat-slider-track-wrapper {
+  height: 5px;
+}
+
+:host>>>.mat-slider-horizontal .mat-slider-track-background {
+  height: 5px;
+}
+
+:host>>>.mat-slider-horizontal .mat-slider-track-fill {
+  height: 5px;
+}
+
+:host>>>.mat-slider-horizontal .mat-slider-ticks {
+  height: 5px;
+}
+
+:host>>>.mat-slider-thumb {
+  bottom: -11px;
+}
+
+:host>>>.mat-slider-horizontal {
+  min-width: 150px;
+}

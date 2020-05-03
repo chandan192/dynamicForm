@@ -1,0 +1,1296 @@
+[
+  {
+    "formName": "Capture Setting",
+    "key": "Capture Setting",
+    "description": "Settings based on which application information are being captured",
+    "icon": "fa fa-shopping-basket",
+    "fields": [
+      {
+        "formName": "General Setting",
+        "key": "General Setting",
+        "icon": "",
+        "fields": [
+          {
+            "subFormName": "Session Expiry Time",
+            "key": "RUM_SID_EXPIRY_TIMEOUT",
+            "rtc": true,
+            "controlType": "fieldset",
+            "description": "It indicates when SID will expire and new SID will generate.",
+            "fields": [
+              {
+                "controlType": "input",
+                "key": "RUM_SID_EXPIRY_TIMEOUT$0",
+                "name": "",
+                "type": "number",
+                "value": 1800,
+                "label": "Session Expiry Time",
+                "unit": "seconds",
+                "validators": {
+                  "min": 60,
+                  "max": 86400
+                }
+              }
+            ]
+          },
+          {
+            "subFormName": "Max Session Duration",
+            "controlType": "fieldset",
+            "key": "MAX_SESSION_DURATION",
+            "rtc": false,
+            "description": "It define maximum session duration of any nv session.",
+            "fields": [
+              {
+                "controlType": "input",
+                "name": "",
+                "type": "number",
+                "value": 7200,
+                "label": "Session Duration",
+                "key": "MAX_SESSION_DURATION$0",
+                "unit": "seconds",
+                "validators": {
+                  "min": "60",
+                  "max": "86400"
+                }
+              }
+            ]
+          },
+          {
+            "subFormName": "Page Dump",
+            "controlType": "fieldset",
+            "key": "RUM_CAPTURE_PAGE_DUMP",
+            "rtc": true,
+            "fields": [
+              {
+                "controlType": "select",
+                "value": "0",
+                "label": "Mode",
+                "key": "RUM_CAPTURE_PAGE_DUMP$0",
+                "options": [
+                  {
+                    "label": "Disable",
+                    "value": "0"
+                  },
+                  {
+                    "label": "Uncompression",
+                    "value": "1"
+                  },
+                  {
+                    "label": "Compression",
+                    "value": "2"
+                  }
+                ],
+                "dependency": [
+                  {
+                    "key": "RUM_CAPTURE_PAGE_DUMP$1",
+                    "value": "0"
+                  }
+                ]
+              },
+              {
+                "subFormName": "Filter",
+                "controlType": "fieldset",
+                "key": "RUM_CAPTURE_PAGE_DUMP$1",
+                "fields": [
+                  {
+                    "controlType": "toggle",
+                    "value": "0",
+                    "label": "Enable",
+                    "key": "RUM_CAPTURE_PAGE_DUMP$2",
+                    "validators": {},
+                    "dependency": [
+                      {
+                        "key": "RUM_CAPTURE_PAGE_DUMP$3",
+                        "value": ""
+                      }
+                    ]
+                  },
+                  {
+                    "controlType": "slider",
+                    "value": "0",
+                    "label": "Filter Value",
+                    "unit": "seconds",
+                    "key": "RUM_CAPTURE_PAGE_DUMP$3",
+                    "validators": {}
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "subFormName": "Location Mode",
+            "controlType": "fieldset",
+            "key": "NV_LOCATION_IP_RANGE_FILE",
+            "rtc": false,
+            "description": "It is used for mapping all ipv4 locations.",
+            "fields": [
+              {
+                "controlType": "select",
+                "name": "",
+                "value": "4",
+                "label": "Mode",
+                "key": "NV_LOCATION_IP_RANGE_FILE$0",
+                "unit": "",
+                "options": [
+                  {
+                    "label": "Disable",
+                    "value": "0"
+                  },
+                  {
+                    "label": "IPV4 Only",
+                    "value": "3"
+                  },
+                  {
+                    "label": "IPV4 and IPV6",
+                    "value": "4"
+                  }
+                ],
+                "validators": {},
+                "dependency": [
+                  {
+                    "key": "NV_LOCATION_IP_RANGE_FILE$1",
+                    "value": "0"
+                  }
+                ]
+              },
+              {
+                "controlType": "toggle",
+                "type": "",
+                "value": true,
+                "label": "Show Indian State",
+                "key": "NV_LOCATION_IP_RANGE_FILE$1",
+                "unit": "",
+                "validators": {}
+              }
+            ]
+          },
+          {
+            "subFormName": "Store",
+            "controlType": "fieldset",
+            "key": "NV_JCP_STORE_STATS",
+            "rtc": false,
+            "description": "It is used to enable store and terminals",
+            "fields": [
+              {
+                "controlType": "toggle",
+                "type": "",
+                "value": "0",
+                "label": "Enable",
+                "key": "NV_JCP_STORE_STATS$0",
+                "unit": "",
+                "validators": {},
+                "dependency": [
+                  {
+                    "key": "NV_JCP_STORE_STATS$1",
+                    "value": ""
+                  },
+                  {
+                    "key": "NV_JCP_STORE_STATS$2",
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "controlType": "input",
+                "type": "number",
+                "value": "",
+                "colspan": 2,
+                "label": "Total number of terminals",
+                "key": "NV_JCP_STORE_STATS$1",
+                "unit": "",
+                "validators": {
+                  "min": 0,
+                  "max": 99
+                }
+              },
+              {
+                "controlType": "select",
+                "type": "",
+                "colspan": 12,
+                "value": "JCPenney",
+                "label": "Store Client",
+                "key": "NV_JCP_STORE_STATS$2",
+                "unit": "kohls",
+                "options": [
+                  {
+                    "value": "JCPenney",
+                    "label": "JCPenney"
+                  },
+                  {
+                    "value": "kohls",
+                    "label": "Kohls"
+                  },
+                  {
+                    "value": "others",
+                    "label": "Others"
+                  }
+                ],
+                "validators": {}
+              }
+            ]
+          },
+          {
+            "subFormName": "Resource Domain",
+            "key": "NV_ENABLE_RESOURCE_DOMAIN_STATS",
+            "rtc": false,
+            "controlType": "fieldset",
+            "description": "It is used to specify how many resource domain to capture.",
+            "fields": [
+              {
+                "controlType": "toggle",
+                "key": "NV_ENABLE_RESOURCE_DOMAIN_STATS$0",
+                "description": "It will enable NV_RESOURCE_DOMIAIN settings",
+                "type": "",
+                "value": "",
+                "label": "Enable",
+                "unit": "",
+                "validators": {},
+                "dependency": [
+                  {
+                    "key": "NV_ENABLE_RESOURCE_DOMAIN_STATS$1",
+                    "value": ""
+                  },
+                  {
+                    "key": "NV_ENABLE_RESOURCE_DOMAIN_STATS$2",
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "controlType": "input",
+                "key": "NV_ENABLE_RESOURCE_DOMAIN_STATS$1",
+                "name": "",
+                "type": "number",
+                "value": 50,
+                "label": "Resource Domain Count",
+                "unit": "",
+                "validators": {
+                  "min": 1,
+                  "max": 1024
+                }
+              },
+              {
+                "controlType": "input",
+                "key": "NV_ENABLE_RESOURCE_DOMAIN_STATS$2",
+                "name": "",
+                "type": "number",
+                "value": 86400,
+                "label": "Resource Domain Frequency",
+                "unit": "",
+                "validators": {}
+              }
+            ]
+          },
+          {
+            "subFormName": "High Page Response Mail",
+            "controlType": "fieldset",
+            "key": "SEND_MAIL_ON_HIGH_PAGE_RESPONSE",
+            "rtc": false,
+            "description": "It is used to enable high page response mail  ",
+            "fields": [
+              {
+                "controlType": "toggle",
+                "type": "",
+                "value": "1",
+                "label": "Send Mail On High Response",
+                "key": "SEND_MAIL_ON_HIGH_PAGE_RESPONSE$0",
+                "unit": "",
+                "validators": {}
+              }
+            ]
+          },
+          {
+            "subFormName": "Form Analytic",
+            "controlType": "fieldset",
+            "key": "ENABLE_FORM_ANALYTICS",
+            "rtc": true,
+            "description": "It is used to analyze user behaviour in online forms.",
+            "fields": [
+              {
+                "controlType": "toggle",
+                "type": "",
+                "value": "",
+                "label": "Enable Form Stats",
+                "key": "ENABLE_FORM_ANALYTICS$0",
+                "unit": "",
+                "validators": {},
+                "dependency": [
+                  {
+                    "key": "ENABLE_FORM_ANALYTICS_MAX_FIELD$0",
+                    "value": ""
+                  },
+                  {
+                    "key": "ENABLE_FORM_ANALYTICS_MAX_FORM$0",
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "controlType": "input",
+                "name": "",
+                "type": "number",
+                "value": 24,
+                "label": "Max Form per Page",
+                "key": "ENABLE_FORM_ANALYTICS_MAX_FORM$0",
+                "unit": "",
+                "validators": {}
+              },
+              {
+                "controlType": "input",
+                "name": "",
+                "type": "number",
+                "value": 16,
+                "label": "Max Field per form",
+                "key": "ENABLE_FORM_ANALYTICS_MAX_FIELD$0",
+                "unit": "",
+                "validators": {}
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "formName": "Advanced Setting",
+        "key": "Advanced Setting",
+        "icon": "",
+        "fields": [
+          {
+            "subFormName": "CSV Buffer",
+            "key": "RUM_CSV_BUFFER",
+            "rtc": false,
+            "description": "it defines when the buffer content is transferred to csv file. Ex. 40 means when 40% buffer is filled it is transferred to csv file.",
+            "controlType": "fieldset",
+            "fields": [
+              {
+                "controlType": "input",
+                "key": "RUM_CSV_BUFFER$0",
+                "name": "",
+                "type": "number",
+                "value": 10,
+                "label": "CSV Buffer Size",
+                "unit": "KB",
+                "validators": {
+                  "min": 1024,
+                  "max": 1048510
+                }
+              },
+              {
+                "controlType": "slider",
+                "key": "RUM_CSV_BUFFER$1",
+                "type": "",
+                "value": 40,
+                "label": "Threshold Percent ",
+                "unit": "",
+                "validators": {}
+              }
+            ]
+          },
+          {
+            "subFormName": "CSP Mode",
+            "key": "ENABLE_NV_CSP",
+            "rtc": false,
+            "controlType": "fieldset",
+            "fields": [
+              {
+                "controlType": "toggle",
+                "key": "ENABLE_NV_CSP$0",
+                "name": "",
+                "type": "0",
+                "value": "1",
+                "label": "Enable CSP stats",
+                "unit": "",
+                "validators": {},
+                "dependency": [
+                  {
+                    "key": "ENABLE_NV_CSP$1",
+                    "value": ""
+                  },
+                  {
+                    "key": "ENABLE_NV_CSP$2",
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "controlType": "input",
+                "key": "ENABLE_NV_CSP$1",
+                "name": "",
+                "type": "text",
+                "value": "nv_csp",
+                "label": "CSP Url",
+                "unit": "",
+                "validators": {}
+              },
+              {
+                "controlType": "toggle",
+                "key": "ENABLE_NV_CSP$2",
+                "name": "",
+                "type": "",
+                "value": "0",
+                "label": "Dump complete error",
+                "unit": "",
+                "validators": {}
+              }
+            ]
+          },
+          {
+            "subFormName": "Performance Timing Outlier",
+            "key": "NV_TIMING_OUTLIER",
+            "rtc": false,
+            "description": "This is used to enable the NV_TIMING_OUTLIER  ",
+            "controlType": "fieldset",
+            "fields": [
+              {
+                "controlType": "toggle",
+                "key": "NV_TIMING_OUTLIER$0",
+                "type": "",
+                "value": "0",
+                "label": "Enable",
+                "unit": "",
+                "validators": {},
+                "dependency": [
+                  {
+                    "key": "NV_TIMING_OUTLIER$1",
+                    "value": "120000"
+                  },
+                  {
+                    "key": "NV_TIMING_OUTLIER$2",
+                    "value": "120000"
+                  },
+                  {
+                    "key": "NV_TIMING_OUTLIER$3",
+                    "value": "120000"
+                  }
+                ]
+              },
+              {
+                "controlType": "input",
+                "key": "NV_TIMING_OUTLIER$1",
+                "type": "number",
+                "value": 120000,
+                "label": "Max onload  ",
+                "unit": "",
+                "validators": {}
+              },
+              {
+                "controlType": "input",
+                "key": "NV_TIMING_OUTLIER$2",
+                "type": "number",
+                "value": 120000,
+                "label": "Max Dom Content load ",
+                "unit": "",
+                "validators": {}
+              },
+              {
+                "controlType": "input",
+                "key": "NV_TIMING_OUTLIER$3",
+                "type": "number",
+                "value": 120000,
+                "label": "Max DOM Time ",
+                "unit": "",
+                "validators": {}
+              }
+            ]
+          },
+          {
+            "subFormName": "Page Loop Event",
+            "key": "NV_PAGE_LOOP_THRESHOLD",
+            "rtc": true,
+            "controlType": "fieldset",
+            "description": " If a session has continuous repetition of a page and it reaches threshold value then the loop event wil be raised.",
+            "fields": [
+              {
+                "controlType": "toggle",
+                "key": "NV_PAGE_LOOP_THRESHOLD$0",
+                "name": "",
+                "type": "",
+                "value": "1",
+                "label": "Enable",
+                "unit": "",
+                "validators": {},
+                "dependency": [
+                  {
+                    "key": "NV_PAGE_LOOP_THRESHOLD$1",
+                    "value": "0"
+                  }
+                ]
+              },
+              {
+                "controlType": "input",
+                "key": "NV_PAGE_LOOP_THRESHOLD$1",
+                "type": "number",
+                "value": 5,
+                "label": "Page Count ",
+                "unit": "",
+                "validators": {
+                  "min": 2,
+                  "max": 10
+                }
+              }
+            ]
+          },
+          {
+            "subFormName": "DOS Attack Handling",
+            "key": "DOS_ATTACK",
+            "rtc": true,
+            "controlType": "fieldset",
+            "description": "This setting is used to enable the DOS_ATTACK ",
+            "fields": [
+              {
+                "controlType": "toggle",
+                "key": "DOS_ATTACK$0",
+                "type": "",
+                "value": "1",
+                "label": "Enable",
+                "unit": "",
+                "validators": {},
+                "dependency": [
+                  {
+                    "key": "DOS_ATTACK$1",
+                    "value": "0"
+                  }
+                ]
+              },
+              {
+                "controlType": "input",
+                "key": "DOS_ATTACK$1",
+                "type": "number",
+                "value": 0,
+                "label": "Maximum Request",
+                "unit": "",
+                "validators": {}
+              }
+            ]
+          },
+          {
+            "subFormName": "Dynamic Metadata RTC",
+            "key": "DYNAMIC_METADATA_RTC",
+            "rtc": false,
+            "controlType": "fieldset",
+            "description": "It allows runtime changes for meta-data attributes e.g. transactions.",
+            "fields": [
+              {
+                "controlType": "toggle",
+                "key": "METADATA_RTC$0",
+                "type": "",
+                "value": "1",
+                "label": "enable",
+                "unit": "",
+                "validators": {}
+              }
+            ]
+          },
+          {
+            "subFormName": "Session Duration Threshold Event",
+            "key": "NV_SESSION_DURATION_THRESHOLD",
+            "rtc": true,
+            "description": "This setting is used to  enable the session duration threshold value. ",
+            "controlType": "fieldset",
+            "fields": [
+              {
+                "controlType": "input",
+                "key": "NV_SESSION_DURATION_THRESHOLD$0",
+                "type": "number",
+                "value": 1,
+                "label": "Session Duration Value",
+                "unit": "",
+                "validators": {}
+              }
+            ]
+          },
+          {
+            "subFormName": "NV CORS ORIGIN",
+            "key": "NV_CORS_ORIGIN",
+            "rtc": false,
+            "fields": [
+              {
+                "controlType": "input",
+                "key": "NV_CORS_ORIGIN$0",
+                "description": "This setting used to set the Access-Control-Allow-Origin header  ",
+                "type": "",
+                "value": "",
+                "label": "URL ",
+                "unit": "",
+                "validators": {}
+              }
+            ]
+          },
+          {
+            "subFormName": "NV TOP DIMENSION SETTINGS",
+            "key": "NV_TOP_DIMENSION_SETTINGS ",
+            "rtc": false,
+            "controlType": "fieldset",
+            "fields": [
+              {
+                "controlType": "toggle",
+                "key": "NV_TOP_DIMENSION_SETTINGS$0",
+                "description": "This is used to enable the NV_TOP_DIMENSION_SETTINGS   ",
+                "type": "",
+                "value": "",
+                "label": "Enable",
+                "unit": "",
+                "validators": {},
+                "dependency": [
+                  {
+                    "key": "NV_TOP_DIMENSION_SETTINGS$1",
+                    "value": ""
+                  },
+                  {
+                    "key": "NV_TOP_DIMENSION_SETTINGS$2",
+                    "value": ""
+                  },
+                  {
+                    "key": "NV_TOP_DIMENSION_SETTINGS$3",
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "controlType": "input",
+                "key": "NV_TOP_DIMENSION_SETTINGS$1",
+                "type": "number",
+                "value": 24,
+                "label": "Duration in hours ",
+                "unit": "",
+                "validators": {}
+              },
+              {
+                "controlType": "input",
+                "key": "NV_TOP_DIMENSION_SETTINGS$2",
+                "type": "number",
+                "value": 25,
+                "label": "Count ",
+                "unit": "",
+                "validators": {}
+              },
+              {
+                "controlType": "input",
+                "key": "NV_TOP_DIMENSION_SETTINGS$3",
+                "type": "number",
+                "value": 24,
+                "label": "Update frequency in hours ",
+                "unit": "",
+                "validators": {}
+              }
+            ]
+          },
+          {
+            "subFormName": "ENABLE REVENUE STATS ",
+            "key": "NV_ENABLE_ORDER_INFO ",
+            "rtc": false,
+            "controlType": "fieldset",
+            "fields": [
+              {
+                "controlType": "toggle",
+                "key": "NV_ENABLE_ORDER_INFO$0",
+                "description": "This settings is used to enable revenue stats metrices on the basis of OrderTotal and OrderCount",
+                "type": "",
+                "value": "",
+                "label": "Enable",
+                "unit": "",
+                "validators": {},
+                "dependency": [
+                  {
+                    "key": "NV_ENABLE_ORDER_INFO$1",
+                    "value": " "
+                  },
+                  {
+                    "key": "NV_ENABLE_ORDER_INFO$2",
+                    "value": ""
+                  },
+                  {
+                    "key": "NV_ENABLE_ORDER_INFO$3",
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "controlType": "input",
+                "key": "NV_ENABLE_ORDER_INFO$1",
+                "type": "number",
+                "value": "",
+                "label": "ChannelId",
+                "unit": "",
+                "validators": {}
+              },
+              {
+                "controlType": "input",
+                "key": "NV_ENABLE_ORDER_INFO$2",
+                "type": "number",
+                "value": "",
+                "label": "OrderTotal",
+                "unit": "",
+                "validators": {}
+              },
+              {
+                "controlType": "input",
+                "key": "NV_ENABLE_ORDER_INFO$3",
+                "type": "number",
+                "value": "",
+                "label": "OrderCount",
+                "unit": "",
+                "validators": {}
+              }
+            ]
+          },
+          {
+            "subFormName": "NV ENABLE AUTO PATTERN ",
+            "key": "NV_ENABLE_AUTO_PATTERN",
+            "rtc": false,
+            "controlType": "fieldset",
+            "fields": [
+              {
+                "controlType": "toggle",
+                "key": "NV_ENABLE_AUTO_PATTERN$0",
+                "description": "This setting used to enable the NV_ENABLE_AUTO_PATTERN ",
+                "type": "",
+                "value": 1,
+                "label": "Enable",
+                "unit": "",
+                "validators": {}
+              }
+            ]
+          },
+          {
+            "subFormName": "ND Exception Event",
+            "key": "ND_EXCEPTION_EVENT",
+            "rtc": false,
+            "description": "This setting is used to enable the ND_EXCEPTION event. ",
+            "controlType": "fieldset",
+            "fields": [
+              {
+                "controlType": "toggle",
+                "key": "ND_EXCEPTION_EVENT$0",
+                "type": "",
+                "value": "1",
+                "label": "Enable",
+                "unit": "",
+                "validators": {}
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "formName": "Partition Setting",
+    "key": "Partition Setting",
+    "icon": "fa fa-window-restore",
+    "fields": [
+      {
+        "subFormName": "Partition",
+        "controlType": "fieldset",
+        "rtc": false,
+        "key": "PARTITION_SETTINGS",
+        "fields": [
+          {
+            "controlType": "toggle",
+            "type": "",
+            "value": "",
+            "label": "Enable",
+            "key": "PARTITION_SETTINGS$0",
+            "unit": "",
+            "validators": {},
+            "dependency": [
+              {
+                "key": "PARTITION_SETTINGS$1",
+                "value": ""
+              },
+              {
+                "key": "PARTITION_SETTINGS$2",
+                "value": ""
+              }
+            ]
+          },
+          {
+            "controlType": "toggle",
+            "type": "",
+            "value": "",
+            "label": "Sync on First Switch",
+            "key": "PARTITION_SETTINGS$1",
+            "unit": "",
+            "validators": {}
+          },
+          {
+            "controlType": "input",
+            "type": "number",
+            "value": 8,
+            "label": "Duration",
+            "key": "PARTITION_SETTINGS$2",
+            "unit": "hrs",
+            "validators": {
+              "min": 1,
+              "max": 24
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "formName": "Multi Disk Setting",
+    "key": "Multi Disk Setting",
+    "icon": "fa fa-code-fork",
+    "fields": [
+      {
+        "controlType": "custom",
+        "key": "multi",
+        "value": "",
+        "route": "multi"
+      }
+    ]
+  },
+  {
+    "formName": "Cluster Setting",
+    "key": "Cluster Setting",
+    "icon": "fa fa-yelp",
+    "fields": []
+  },
+  {
+    "formName": "Overload Control Setting",
+    "key": "Overload Control Setting",
+    "icon": "fa fa-thermometer-full",
+    "fields": [
+      {
+        "subFormName": "Overload Control",
+        "key": "NV_OVERLOAD_CONTROL",
+        "rtc": false,
+        "controlType": "fieldset",
+        "fields": [
+          {
+            "controlType": "toggle",
+            "key": "NV_OVERLOAD_CONTROL$0",
+            "type": "",
+            "colspan": 12,
+            "value": "0",
+            "label": "Enable",
+            "unit": "",
+            "validators": {},
+            "dependency": [
+              {
+                "key": "NV_OVERLOAD_CONTROL$1",
+                "value": ""
+              },
+              {
+                "key": "NV_OVERLOAD_CONTROL$2",
+                "value": ""
+              },
+              {
+                "key": "NV_OVERLOAD_CONTROL$3",
+                "value": ""
+              },
+              {
+                "key": "NV_OVERLOAD_CONTROL$4",
+                "value": ""
+              },
+              {
+                "key": "NV_OVERLOAD_CONTROL$5",
+                "value": ""
+              }
+            ]
+          },
+          {
+            "controlType": "slider",
+            "key": "NV_OVERLOAD_CONTROL$1",
+            "type": "",
+            "colspan": 3,
+            "value": "",
+            "label": "System busy critical threshold ",
+            "unit": "",
+            "validators": {}
+          },
+          {
+            "controlType": "slider",
+            "key": "NV_OVERLOAD_CONTROL$2",
+            "colspan": 3,
+            "type": "",
+            "value": "",
+            "label": "System busy Major threshold ",
+            "unit": "",
+            "validators": {}
+          },
+          {
+            "controlType": "slider",
+            "key": "NV_OVERLOAD_CONTROL$4",
+            "type": "",
+            "colspan": 3,
+            "value": "",
+            "label": "Control Step Filter Percentage ",
+            "unit": "",
+            "validators": {}
+          },
+          {
+            "controlType": "input",
+            "key": "NV_OVERLOAD_CONTROL$3",
+            "type": "number",
+            "value": "",
+            "colspan": 2,
+            "label": "Control Step Interval  ",
+            "unit": "sec",
+            "validators": {}
+          },
+          {
+            "controlType": "slider",
+            "key": "NV_OVERLOAD_CONTROL$5",
+            "type": "",
+            "value": "",
+            "colspan": 3,
+            "label": "Max Filter Percentage ",
+            "unit": "",
+            "validators": {}
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "formName": "DB Upload Setting",
+    "key": "DB Upload Setting",
+    "icon": "fa fa-cloud-upload",
+    "fields": [
+      {
+        "subFormName": "DB Upload",
+        "controlType": "fieldset",
+        "key": "NVDBU_UPLOAD_TOOL",
+        "fields": [
+          {
+            "controlType": "select",
+            "name": "",
+            "type": "",
+            "value": "",
+            "label": "Upload Tool",
+            "key": "NVDBU_UPLOAD_TOOL$0",
+            "unit": "",
+            "options": [
+              {
+                "label": "Copy",
+                "value": "copy"
+              },
+              {
+                "label": "PG_Bulkload",
+                "value": "pg_bulkload"
+              }
+            ],
+            "validators": {}
+          },
+          {
+            "subFormName": "DB Trace",
+            "controlType": "fieldset",
+            "key": "NRDBU_TRACE_LEVEL",
+            "rtc": true,
+            "fields": [
+              {
+                "controlType": "select",
+                "name": "",
+                "type": "",
+                "value": "",
+                "label": "Trace Level",
+                "key": "NRDBU_TRACE_LEVEL$0",
+                "unit": "",
+                "options": [
+                  {
+                    "label": "1",
+                    "value": "1"
+                  },
+                  {
+                    "label": "2",
+                    "value": "2"
+                  },
+                  {
+                    "label": "3",
+                    "value": "3"
+                  },
+                  {
+                    "label": "4",
+                    "value": "4"
+                  }
+                ],
+                "validators": {}
+              },
+              {
+                "controlType": "input",
+                "name": "",
+                "type": "number",
+                "value": "",
+                "label": "Trace File rollover size",
+                "key": "NRDBU_TRACE_LEVEL$1",
+                "unit": "MB",
+                "validators": {}
+              },
+              {
+                "controlType": "input",
+                "type": "number",
+                "value": "",
+                "rtc": true,
+                "label": "DB Buffer Size Settings",
+                "key": "NVDBU_BUFFER_SIZE$0",
+                "unit": "MB",
+                "validators": {}
+              },
+              {
+                "controlType": "input",
+                "type": "number",
+                "value": "",
+                "rtc": true,
+                "label": "DB Idle Time Settings ",
+                "key": "NVDBU_IDLE_TIME$0",
+                "unit": "Minutes",
+                "validators": {}
+              },
+              {
+                "controlType": "input",
+                "name": "",
+                "type": "number",
+                "value": "",
+                "rtc": true,
+                "label": "Cycle Settings ",
+                "key": "NVDBU_NUM_CYCLES$0",
+                "unit": "",
+                "validators": {}
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "formName": "Memory Reporter Setting",
+    "key": "Memory Reporter Setting",
+    "icon": "fa fa-microchip",
+    "fields": [
+      {
+        "subFormName": "Memory Reporter",
+        "controlType": "fieldset",
+        "rtc": true,
+        "key": "NV_REPORTING_TRACE_LEVEL",
+        "fields": [
+          {
+            "controlType": "select",
+            "name": "",
+            "type": "",
+            "value": "1",
+            "label": "Trace Level",
+            "key": "NV_REPORTING_TRACE_LEVEL$0",
+            "description": "It define nv trace log level",
+            "unit": "",
+            "options": [
+              {
+                "label": "1",
+                "value": "1"
+              },
+              {
+                "label": "2",
+                "value": "2"
+              },
+              {
+                "label": "3",
+                "value": "3"
+              },
+              {
+                "label": "4",
+                "value": "4"
+              }
+            ],
+            "validators": {}
+          },
+          {
+            "controlType": "input",
+            "type": "number",
+            "value": 10,
+            "label": " Trace File rollover size ",
+            "key": "NV_REPORTING_TRACE_LEVEL$1",
+            "description": "It define nv trace log level size",
+            "unit": "MB",
+            "validators": {
+              "min": 1,
+              "max": 2048
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "formName": "Aggregator Setting",
+    "key": "Aggregator Setting",
+    "icon": "fa fa-sitemap",
+    "fields": [
+      {
+        "subFormName": "NV_AGGREGATOR",
+        "controlType": "fieldset",
+        "key": "NV_AGGREGATOR_RUN_MODE",
+        "rtc": false,
+        "fields": [
+          {
+            "controlType": "toggle",
+            "type": "",
+            "value": "1",
+            "label": "Run Mode",
+            "key": "NV_AGGREGATOR_RUN_MODE$0",
+            "description": "It define the aggregator run mode ",
+            "unit": "",
+            "validators": {},
+            "dependency": [
+              {
+                "key": "NV_AGG_REPORTING_TRACE_LEVEL$0",
+                "value": ""
+              },
+              {
+                "key": "NV_AGG_REPORTING_TRACE_LEVEL$1",
+                "value": ""
+              }
+            ]
+          },
+          {
+            "controlType": "input",
+            "type": "number",
+            "value": 1,
+            "label": "Trace Level",
+            "key": "NV_AGG_REPORTING_TRACE_LEVEL$0",
+            "description": "It define nv trace log level",
+            "unit": "",
+            "validators": {
+              "min": 1,
+              "max": 4
+            }
+          },
+          {
+            "controlType": "input",
+            "name": "",
+            "type": "number",
+            "value": 10,
+            "label": " Trace File rollover size ",
+            "key": "NV_AGG_REPORTING_TRACE_LEVEL$1",
+            "description": "It define nv trace log level size",
+            "unit": "MB",
+            "validators": {
+              "min": 1,
+              "max": 2048
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "formName": "Bot Detection Setting",
+    "key": "BOT_DETECTION_ENABLE",
+    "icon": "fa fa-grav",
+    "fields": [
+      {
+        "subFormName": "Bot Detection Enable",
+        "key": "BOT_DETECTION_ENABLE",
+        "rtc": true,
+        "controlType": "fieldset",
+        "description": "It indicates when SID will expire and new SID will generate.",
+        "fields": [
+          {
+            "controlType": "toggle",
+            "key": "BOT_DETECTION_ENABLE$0",
+            "name": "",
+            "type": "number",
+            "value": 0,
+            "label": "Bot Detection Mode",
+            "unit": "",
+            "validators": {},
+            "dependency": [
+              {
+                "key": "BOT_DETECTION_ENABLE$1",
+                "value": ""
+              }
+            ]
+          },
+          {
+            "controlType": "input",
+            "key": "BOT_DETECTION_ENABLE$1",
+            "name": "",
+            "type": "number",
+            "value": 0,
+            "label": "Default_Bot_Pct",
+            "unit": "",
+            "validators": {}
+          }
+        ]
+      },
+      {
+        "subFormName": "Bot Detection Checksum",
+        "key": "NV_BD_CHECKSUM",
+        "rtc": true,
+        "controlType": "fieldset",
+        "description": "It indicates when SID will expire and new SID will generate.",
+        "fields": [
+          {
+            "controlType": "input",
+            "key": "NV_BD_CHECKSUM$0",
+            "name": "",
+            "type": "number",
+            "value": 0,
+            "label": "Checksum Type",
+            "unit": "",
+            "validators": {}
+          },
+          {
+            "controlType": "input",
+            "key": "NV_BD_CHECKSUM$1",
+            "type": "text",
+            "value": "",
+            "label": "Pageid List",
+            "unit": "",
+            "validators": {}
+          },
+          {
+            "controlType": "input",
+            "key": "NV_BD_CHECKSUM$2",
+            "name": "",
+            "type": "text",
+            "value": "",
+            "label": "Checksum",
+            "unit": "",
+            "validators": {}
+          }
+        ]
+      },
+      {
+        "subFormName": "NV SCA MODE",
+        "key": "NV_SCA_MODE",
+        "rtc": true,
+        "controlType": "fieldset",
+        "description": "It indicates when SID will expire and new SID will generate.",
+        "fields": [
+          {
+            "controlType": "select",
+            "key": "NV_SCA_MODE$0",
+            "value": "2",
+            "label": "NV SCA MODE",
+            "unit": "",
+            "options": [
+              {
+                "label": "Generate and Execute Puzzle",
+                "value": "1"
+              },
+              {
+                "label": "Generate and Execute Js Puzzle",
+                "value": "2"
+              }
+            ],
+            "validators": {}
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "formName": "Backup and Cleanup Setting",
+    "key": "Backup and Cleanup Setting",
+    "icon": "fa fa-jsfiddle",
+    "fields": [
+      {
+        "controlType": "custom",
+        "key": "backup",
+        "value": "",
+        "route": "backup"
+      }
+    ]
+  }
+]

@@ -1,0 +1,75 @@
+<div class="ui-g">
+    <form [formGroup]="form">
+        <div [formArrayName]="fieldData.key">
+            <p-accordion [class]="fieldData.colspan != undefined ? colspan : 'ui-g-12 ui-lg-12'">
+                <p-accordionTab [header]="fieldData.label">
+                    <ng-container *ngIf="fieldData?.readonly != true">
+                        <button pButton (click)="showDialog()" label="Add"
+                            [disabled]="fieldData?.readonly"></button>&nbsp;
+                        <button pButton (click)="editControl()" label="Edit" class="ui-button-warning"
+                            [disabled]="fieldData?.readonly"></button>&nbsp;
+                        <button pButton (click)="deleteControl()" label="Delete" class="ui-button-danger"
+                            [disabled]="fieldData?.readonly"></button>
+                    </ng-container>
+
+                    <p-dialog [header]="fieldData.label" [(visible)]="display" [modal]="true" appendTo="body"
+                        [closable]="false">
+                        <ng-container *ngFor="let comp of form.get(fieldData.key)['controls']; let i=index">
+                            <div [formGroupName]="i" class="ui-g"
+                                [ngStyle]="{'display': i == controlIndex ? 'block':'none' }">
+
+                                <ng-container *ngFor="let field of fieldData.fields">
+                                    <!-- {{field.key + ' '+  field.value}} -->
+                                    <app-dynamic-form-right [fields]="field" [form]="comp" [dialog]="isDialog">
+                                    </app-dynamic-form-right>
+                                </ng-container>
+                            </div>
+                        </ng-container>
+
+                        <p-footer>
+                            <!-- <div style="text-align: center;"> -->
+                            <!-- Add Button -->
+                            <ng-container *ngIf="editDisplay == false">
+                                <button type="button" pButton (click)="addControl()" label="Add"></button>
+                                <button type="button" pButton (click)="resetControl()" label="Cancel"
+                                    class="ui-button-secondary"></button>
+                            </ng-container>
+
+                            <!-- Update Button -->
+                            <ng-container *ngIf="editDisplay == true">
+                                <button type="button" pButton (click)="updateControl()" label="Update"></button>
+                                <button type="button" pButton (click)="resetUpdate()" label="Cancel"
+                                    class="ui-button-secondary"></button>
+                            </ng-container>
+                            <!-- </div> -->
+
+
+                        </p-footer>
+                    </p-dialog>
+
+                    <br><br>
+                    <p-table [columns]="cols" [value]="tableData" selectionMode="single" [(selection)]="row"
+                        (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)" [paginator]="true"
+                        [rows]="15" [resizableColumns]="true">
+                        <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th *ngFor="let col of columns" pResizableColumn [title]="col.header">
+                                    {{col.header}}
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex"
+                            class="ui-resizable-column">
+                            <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="i">
+                                <td *ngFor="let col of columns" [title]="rowData[col.field]">
+                                    {{rowData[col.field]}}
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-accordionTab>
+            </p-accordion>
+        </div>
+
+    </form>
+</div>
