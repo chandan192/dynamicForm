@@ -18,6 +18,7 @@ export class DynamicFormComponent implements OnInit, OnChanges {
   @Input() metadataMap: string;
   @Input() readOnly: boolean;
   @Input() btnClass: string;
+  @Input() rawValue: boolean;
   formSchema: DynamicForm[];
   form: FormGroup;
   formError: DynamicFormError;
@@ -116,7 +117,11 @@ export class DynamicFormComponent implements OnInit, OnChanges {
       });
 
     } else {
-      this.result.emit(f.value);
+
+      if (this.rawValue === true) {
+        this.result.emit(f.getRawValue());
+      } else
+        this.result.emit(f.value);
     }
 
 

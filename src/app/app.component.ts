@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
   title = 'dataDrivenForm';
   readOnly = false;
   sidePanelPosition = 'left';
+  rawValue = true;
   buttonStyle = {
     width: '61px',
     height: '55px',
@@ -42,48 +43,49 @@ export class AppComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   getResult(output) {
-    // this.Obj = {};
-    // console.log('output : ', output);
+    this.Obj = {};
+    console.log('output : ', output);
 
-    // // tslint:disable-next-line: forin
-    // for (const i in output) {
-    //   this.getKeyValues(output[i]);
-    // }
+    // tslint:disable-next-line: forin
+    for (const i in output) {
+      this.getKeyValues(output[i]);
+    }
 
-    // // Handling for Duplicate keys
-    // // It may happen when are recursively creating same keys for multiple values
+    // Handling for Duplicate keys
+    // It may happen when are recursively creating same keys for multiple values
 
-    // // tslint:disable-next-line: forin
-    // for (const i in this.Obj) {
-    //   const tmp = [];
-    //   // tslint:disable-next-line: forin
-    //   for (const j in this.Obj) {
-    //     if (i.split('$')[0] === j.split('$')[0]) {
+    // tslint:disable-next-line: forin
+    for (const i in this.Obj) {
+      const tmp = [];
+      // tslint:disable-next-line: forin
+      for (const j in this.Obj) {
+        if (i.split('$')[0] === j.split('$')[0]) {
 
-    //       // Only those keyword whose value is not empty should be considered
-    //       if (this.Obj[j] !== '') {
-    //         tmp.push(this.Obj[j]);
-    //       }
-    //       delete this.Obj[j];
-    //     }
-    //   }
+          // Only those keyword whose value is not empty should be considered
+          if (this.Obj[j] !== '') {
+            tmp.push(this.Obj[j]);
+          }
 
-    //   if (tmp.length) {
-    //     this.Obj[i.split('$')[0]] = tmp.join(' ');
+          delete this.Obj[j];
+        }
+      }
 
-    //     // remove those keywords whose value is not changed
-    //     if (this.response[i.split('$')[0]] === this.Obj[i.split('$')[0]]) {
-    //       delete this.Obj[i.split('$')[0]];
-    //     }
-    //   }
-    // }
+      if (tmp.length) {
+        this.Obj[i.split('$')[0]] = tmp.join(' ');
 
-
-    // console.log(this.Obj);
+        // remove those keywords whose value is not changed
+        // if (this.response[i.split('$')[0]] === this.Obj[i.split('$')[0]]) {
+        //   delete this.Obj[i.split('$')[0]];
+        // }
+      }
+    }
 
 
-    // const data = 'data:' + JSON.stringify(this.Obj);
-    // const url = 'http://10.20.0.53:8029/netvision/rest/webapi/postconfigui?access_token=563e412ab7f5a282c15ae5de1732bfd1';
+    console.log(this.Obj);
+
+
+    const data = 'data:' + JSON.stringify(this.Obj);
+    const url = 'http://10.20.0.53:8029/netvision/rest/webapi/postconfigui?access_token=563e412ab7f5a282c15ae5de1732bfd1';
     // this.http.post(url, data, { headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' }) }).subscribe(res => console.log('responseeee', res));
 
 
@@ -124,26 +126,26 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.jsonFile = FormSchema['default'];
-    // const jsonTmp = FormSchema['default'];
+    // this.jsonFile = FormSchema['default'];
+    const jsonTmp = FormSchema['default'];
 
-    // const url = 'http://10.20.0.53:8029/netvision/rest/webapi/getconfigui?sid=123e3e2323&access_token=563e412ab7f5a282c15ae5de1732bfd1';
-    // this.http.get(url).subscribe(response => {
+    const url = 'http://10.20.0.53:8029/netvision/rest/webapi/getconfigui?sid=123e3e2323&access_token=563e412ab7f5a282c15ae5de1732bfd1';
+    this.http.get(url).subscribe(response => {
 
-    //   console.log('Response : ', response);
+      console.log('Response : ', response);
 
-    //   this.response = response;
-    //   for (const i of jsonTmp) {
-    //     this.setJSONFile(i.fields);
-    //   }
-    //   console.log(jsonTmp);
-    //   this.jsonFile = jsonTmp;
-    // },
-    //   error => {
-    //     console.log(error);
-    //     alert('Oops ... ' + error.status + ' (' + error.statusText + ')');
-    //   }
-    // );
+      this.response = response;
+      for (const i of jsonTmp) {
+        this.setJSONFile(i.fields);
+      }
+      console.log(jsonTmp);
+      this.jsonFile = jsonTmp;
+    },
+      error => {
+        console.log(error);
+        alert('Oops ... ' + error.status + ' (' + error.statusText + ')');
+      }
+    );
 
   }
 

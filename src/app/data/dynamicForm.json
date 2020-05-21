@@ -1,770 +1,1285 @@
 [
   {
-    "formName": "Capture Setting",
-    "key": "Capture Setting",
-    "description": "Settings based on which application information are being captured",
-    "icon": "fa fa-shopping-basket",
+    "formName": "General",
+    "key": "general",
+    "description": "Schema for Js Agent",
     "fields": [
       {
-        "formName": "General Setting",
-        "key": "General Setting",
-        "icon": "",
+        "key": "beacon_url",
+        "value": "",
+        "label": "Beacon URL",
+        "controlType": "input",
+        "type": "text",
+        "colspan": 12,
+        "description": "URL responsible for capturing NV information",
+        "seq": 0,
+        "validators": {
+          "required": true,
+          "pattern": "^(?:http(s)?:\\\/\\\/)?[\\\/\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:\/\/?#[\\]@!\\$&'\\(\\)\\*\\+,;=.]+$"
+        }
+      },
+      {
+        "key": "site_domain",
+        "value": "",
+        "colspan": 6,
+        "label": "Site Domain",
+        "description": "ex to fill values are -- domain.com, example.domain.com, example.domain-hyphen.com, www.domain.com",
+        "controlType": "input",
+        "type": "text",
+        "seq": 1,
+        "validators": {
+          "required": false,
+          "pattern": "^(?!:\\\/\\\/)([a-zA-Z0-9-_]+\\.)*[a-zA-Z0-9][a-zA-Z0-9-_]+\\.[a-zA-Z]{2,11}?$"
+        }
+      },
+      {
+        "key": "user_ip",
+        "value": "",
+        "colspan": 3,
+        "description": "ex to fill values are --192.168.1.1, 182.165.1.1 ",
+        "label": "User IP",
+        "controlType": "input",
+        "type": "text",
+        "seq": 1,
+        "validators": {
+          "required": false,
+          "pattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$"
+        }
+      },
+      {
+        "key": "enableWorker",
+        "value": true,
+        "colspan": 3,
+        "label": "EnableWorker",
+        "controlType": "toggle",
+        "description": "A web worker is a JavaScript that runs in the background, independently of other scripts, without affecting the performance of the page",
+        "type": "boolean",
+        "seq": 1
+      },
+      {
+        "key": "enableCvrAllPages",
+        "value": true,
+        "colspan": 3,
+        "label": "EnableCvrAllPages",
+        "controlType": "toggle",
+        "description": "In this we don't wait for page to be ready rather we send timing once the library initiates.",
+        "type": "boolean",
+        "seq": 1
+      },
+      {
+        "key": "log_level",
+        "value": 3,
+        "colspan": 3,
+        "label": "Log Level",
+        "description": "It denotes the level of logs. few are the important logs which we can set priority 1, if less important then 2 and then subsequently",
+        "controlType": "select",
+        "type": "number",
+        "seq": 3,
+        "validators": {
+          "required": true
+        },
+        "options": [
+          {
+            "label": "1",
+            "value": 1
+          },
+          {
+            "label": "2",
+            "value": 2
+          },
+          {
+            "label": "3",
+            "value": 3
+          },
+          {
+            "label": "4",
+            "value": 4
+          }
+        ]
+      },
+      {
+        "key": "monitorIframe",
+        "value": false,
+        "description": "It is used to capture adds data for netvision replay.",
+        "colspan": 3,
+        "label": "Monitor Iframe",
+        "controlType": "toggle",
+        "type": "boolean",
+        "seq": 13
+      },
+      {
+        "key": "wpdEvent",
+        "value": false,
+        "colspan": 3,
+        "label": "WPD Event",
+        "description": "Turn on to get notified if web page is distorted.",
+        "controlType": "toggle",
+        "type": "boolean",
+        "seq": 13
+      },
+      {
+        "key": "logNDSessionAlways",
+        "value": false,
+        "colspan": 3,
+        "label": "Log NDSession",
+        "description": "To get NetDiagnostic information on each NV Page.",
+        "controlType": "toggle",
+        "type": "boolean",
+        "seq": 13
+      },
+      {
+        "key": "visitorInfo",
+        "value": false,
+        "colspan": 3,
+        "label": "Visitor Information",
+        "description": "To get the visitor information traversed on same browser using CavVI cookie ",
+        "controlType": "toggle",
+        "type": "boolean",
+        "seq": 13
+      },
+      {
+        "key": "visitorExpiryTime",
+        "value": 2592000,
+        "colspan": 3,
+        "label": "visitor Expiry Time ",
+        "description": "Expiry time for the CavVI cookie responsible for tracking visitor information",
+        "controlType": "input",
+        "unit": "seconds",
+        "type": "number",
+        "seq": 9,
+        "validators": {
+          "required": true
+        }
+      },
+      {
+        "key": "uaCaptureResource",
+        "value": false,
+        "colspan": 3,
+        "label": "Capture Resource Activity",
+        "description": "uaCaptureResource is for recording resources too in case of usertiming capture just to prove that these particular resources are coming in between that call If Turn ON",
+        "controlType": "toggle",
+        "type": "boolean",
+        "seq": 4
+      },
+      {
+        "key": "blacklist_id",
+        "value": [],
+        "label": "Black List id",
+        "description": "To blacklist a DOM Element using its id",
+        "controlType": "chips",
+        "type": "number",
+        "colspan": 12,
+        "seq": 4,
+        "validators": {
+          "required": true
+        }
+      },
+      {
+        "key": "dataFlushInterval",
+        "value": 10,
+        "colspan": 2,
+        "label": "Data Flush Interval",
+        "description": "Specify time to send the collected data on browser to nv server periodically",
+        "controlType": "input",
+        "units": "seconds",
+        "type": "number",
+        "seq": 5,
+        "validators": {
+          "min": 10,
+          "max": 900,
+          "required": true
+        }
+      },
+      {
+        "key": "loginIDLowerCase",
+        "value": false,
+        "colspan": 3,
+        "label": "LoginidLowerCase",
+        "description": "To get the login id of the user in lower case only",
+        "controlType": "toggle",
+        "type": "boolean",
+        "seq": 7
+      },
+      {
+        "key": "maxCookieSize",
+        "value": 1024,
+        "colspan": 3,
+        "unit": "bytes",
+        "label": "Cookie Size",
+        "description": "Specify the maximum cookie size(in bytes) available on web page to show on NV",
+        "controlType": "input",
+        "type": "number",
+        "seq": 6,
+        "validators": {
+          "min": 256,
+          "max": 1024,
+          "required": true
+        }
+      },
+      {
+        "key": "maxSessionDuration",
+        "value": 7200,
+        "unit": "seconds",
+        "colspan": 3,
+        "label": "Maximum Session duration Size",
+        "description": "Specify max time a session can be run on a browser(in seconds)",
+        "controlType": "input",
+        "type": "number",
+        "seq": 6,
+        "validators": {
+          "min": 60,
+          "max": 28800,
+          "required": true
+        }
+      },
+      {
+        "key": "encryptedElement",
+        "value": [],
+        "label": "Encrypt DOM Elements",
+        "description": "Specify selectors of DOM elements which needs to be encrypted in NV Replay",
+        "controlType": "chips",
+        "seq": 4,
+        "colspan": 12,
+        "validators": {
+          "required": true
+        }
+      },
+      {
+        "key": "eDataPattern",
+        "value": [],
+        "label": "Events Data pattern",
+        "description": "Specify pattern for event's additional data to create a group. ",
+        "controlType": "chips",
+        "colspan": 12,
+        "seq": 4,
+        "validators": {
+          "required": true
+        }
+      },
+      {
+        "key": "imgUrlPattern",
+        "value": [],
+        "label": "Image url pattern",
+        "controlType": "chips",
+        "seq": 4,
+        "description": "specify pattern for image urls needed to measure the perceived render time.",
+        "colspan": 12,
+        "validators": {
+          "required": true
+        }
+      },
+      {
+        "key": "enableCssSelector",
+        "value": true,
+        "colspan": 3,
+        "label": "Enable Css Selector",
+        "description": "It will return the css selectors of the DOM Element in useractions.",
+        "controlType": "toggle",
+        "type": "boolean",
+        "seq": 7
+      },
+      {
+        "key": "messageVersion",
+        "value": 0,
+        "colspan": 3,
+        "label": "Message Version",
+        "description": "This keyword is used to  get the json type content in the payload of each post request of NV. Value should be in the format of Plain Text/JSON.",
+        "controlType": "select",
+        "type": "number",
+        "options": [
+          {
+            "label": "Plain Text",
+            "value": 0
+          },
+          {
+            "label": "JSON",
+            "value": 1
+          }
+        ],
+        "seq": 7,
+        "validators": {
+          "required": true
+        }
+      },
+      {
+        "key": "protocolVersion",
+        "value": 1,
+        "colspan": 3,
+        "label": "Protocol Version",
+        "description": "Protocol version varies according to the application type. Web = 1, Mobile SDK = 200",
+        "controlType": "select",
+        "type": "number",
+        "readOnly": true,
+        "seq": 9,
+        "options": [
+          {
+            "label": "Web",
+            "value": 1
+          },
+          {
+            "label": "SDK",
+            "value": 200
+          }
+        ],
+        "validators": {
+          "required": true
+        }
+      },
+      {
+        "key": "filterBotSession",
+        "value": false,
+        "colspan": 3,
+        "label": "filterBotSession",
+        "description": "NV will not record bot sessions if turned on.",
+        "controlType": "toggle",
+        "type": "boolean",
+        "seq": 7
+      },
+      {
+        "key": "JCP_stats",
+        "value": false,
+        "colspan": 3,
+        "label": "Store Stats",
+        "description": "if JCP StoreStats is enabled then we look for a cookie DPReferralUser and pick the store info from there",
+        "controlType": "toggle",
+        "type": "boolean",
+        "seq": 10
+      },
+      {
+        "key": "sessionExpiry",
+        "value": 1800,
+        "colspan": 3,
+        "unit": "seconds",
+        "label": "Session Expiry time",
+        "description": "sessionExpiry exists in config for mentioning the duration of CavNVC cookie",
+        "controlType": "input",
+        "type": "number",
+        "seq": 4,
+        "validators": {
+          "min": 60,
+          "max": 7200,
+          "required": true
+        }
+      },
+      {
+        "key": "rsaEncryption",
+        "value": false,
+        "description": "Use of private key file after enabling this feature",
+        "colspan": 3,
+        "label": "RSA Encryption",
+        "controlType": "toggle",
+        "type": "boolean",
+        "seq": 11
+      },
+      {
+        "key": "cookieLess",
+        "value": false,
+        "colspan": 3,
+        "description": "Turn it on to use cookie less support of Netvision. Works using localStorage.",
+        "label": "Cookie Less Tracking",
+        "controlType": "toggle",
+        "type": "boolean",
+        "seq": 11
+      },
+      {
+        "key": "blacklistCookies",
+        "value": [],
+        "label": "Black List Cookies",
+        "description": "Specify cookies which does not want to be recorded in NV",
+        "controlType": "chips",
+        "type": "text",
+        "seq": 12,
+        "colspan": 12,
+        "validators": {
+          "required": true
+        }
+      },
+      {
+        "key": "whitelistCookies",
+        "value": [],
+        "label": "White List Cookies",
+        "description": "Specify cookies which should always be captured in NV",
+        "controlType": "chips",
+        "seq": 8,
+        "colspan": 12,
+        "validators": {
+          "required": true
+        }
+      },
+      {
+        "key": "remoteConfig",
+        "value": false,
+        "colspan": 3,
+        "description": "Enable it if using another  config (remotely) at client side ",
+        "label": "Remote Config Mode",
+        "controlType": "toggle",
+        "type": "boolean",
+        "seq": 13
+      },
+      {
+        "key": "resourceTiming",
+        "value": true,
+        "colspan": 3,
+        "label": "Resource Timing Mode",
+        "description": "Turn On to Capture  all the  resource/domain data ",
+        "controlType": "toggle",
+        "type": "boolean",
+        "seq": 14
+      },
+      {
+        "key": "ndHeader",
+        "value": "X-CavNV",
+        "colspan": 3,
+        "label": "Header",
+        "description": "Specify ND Header to capture the ND information of Ajax calls",
+        "controlType": "input",
+        "type": "text",
+        "seq": 1,
+        "validators": {
+          "required": true
+        }
+      },
+      {
+        "key": "unloadLC",
+        "value": false,
+        "colspan": 3,
+        "label": "Last Click Based Unload",
+        "description": "Unload time will be based on the user's last click if turned on",
+        "controlType": "toggle",
+        "type": "boolean",
+        "seq": 14
+      },
+      {
+        "key": "customMetrics",
+        "value": [],
+        "colspan": 12,
+        "label": "Custom Metrics",
+        "description": "Specify custom data to be captured in NV",
+        "controlType": "jsonarray",
+        "readonly": true,
+        "required": true,
+        "seq": 13,
         "fields": [
           {
-            "subFormName": "Session Expiry Time",
-            "key": "RUM_SID_EXPIRY_TIMEOUT",
-            "rtc": true,
-            "controlType": "fieldset",
-            "description": "It indicates when SID will expire and new SID will generate.",
-            "fields": [
-              {
-                "controlType": "input",
-                "key": "RUM_SID_EXPIRY_TIMEOUT$0",
-                "name": "",
-                "type": "number",
-                "value": 1800,
-                "label": "Session Expiry Time",
-                "unit": "seconds",
-                "validators": {
-                  "min": 60,
-                  "max": 86400
-                }
-              }
-            ]
+            "key": "name",
+            "value": "",
+            "colspan": 3,
+            "label": "Name",
+            "description": "Name of custom metric",
+            "controlType": "input",
+            "type": "text",
+            "dbtable": "nvcustommetricsmetadatatable",
+            "dbcolumn": "name"
           },
           {
-            "subFormName": "Max Session Duration",
-            "controlType": "fieldset",
-            "key": "MAX_SESSION_DURATION",
-            "rtc": false,
-            "description": "It define maximum session duration of any nv session.",
-            "fields": [
-              {
-                "controlType": "input",
-                "name": "",
-                "type": "number",
-                "value": 7200,
-                "label": "Session Duration",
-                "key": "MAX_SESSION_DURATION$0",
-                "unit": "seconds",
-                "validators": {
-                  "min": "60",
-                  "max": "86400"
-                }
-              }
-            ]
+            "key": "id",
+            "value": -1,
+            "colspan": 3,
+            "label": "Id",
+            "description": "Id of custom metric",
+            "controlType": "input",
+            "type": "number",
+            "dbtable": "nvcustommetricsmetadatatable",
+            "dbcolumn": "id"
           },
           {
-            "subFormName": "Page Dump",
-            "controlType": "fieldset",
-            "key": "RUM_CAPTURE_PAGE_DUMP",
-            "rtc": true,
+            "key": "type",
+            "value": "text",
+            "colspan": 3,
+            "label": "Type",
+            "description": "Type of custom metric",
+            "controlType": "input",
+            "type": "text",
+            "dbtable": "nvcustommetricsmetadatatable",
+            "dbcolumn": "type",
+            "dbvaluemap": {
+              "0": "text",
+              "1": "number",
+              "2": "double",
+              "3": "json"
+            }
+          },
+          {
+            "key": "encode",
+            "value": 0,
+            "colspan": 3,
+            "label": "Encode Flag",
+            "description": "Encode flag of custom metric",
+            "controlType": "input",
+            "type": "number",
+            "dbtable": "nvcustommetricsmetadatatable",
+            "dbcolumn": "encryptflag"
+          }
+        ]
+      },
+      {
+        "key": "pageFilter",
+        "value": {},
+        "label": "Page Filter Value",
+        "description": "Filter pages in NV according to the percentages specified",
+        "controlType": "json",
+        "required": true,
+        "seq": 15,
+        "fields": [
+          {
+            "key": "pctA",
+            "value": 100,
+            "label": "Filter(%) for All",
+            "description": "Filter percentage for all the pages",
+            "controlType": "slider",
+            "type": "number",
+            "colspan": 3,
+            "required": true,
+            "validators": {
+              "min": 5,
+              "max": 100
+            }
+          },
+          {
+            "key": "pctU",
+            "value": 100,
+            "label": "Filter(%) for Unknown Pages",
+            "description": "Filter percentage for Unknown pages",
+            "controlType": "slider",
+            "type": "number",
+            "required": true,
+            "colspan": 3,
+            "validators": {
+              "min": 5,
+              "max": 100
+            }
+          },
+          {
+            "key": "o",
+            "value": [],
+            "label": "Page specific filter",
+            "description": "Page specific filter",
+            "controlType": "jsonarray",
             "fields": [
               {
-                "controlType": "select",
-                "value": "0",
-                "label": "Mode",
-                "key": "RUM_CAPTURE_PAGE_DUMP$0",
-                "options": [
-                  {
-                    "label": "Disable",
-                    "value": "0"
-                  },
-                  {
-                    "label": "Uncompression",
-                    "value": "1"
-                  },
-                  {
-                    "label": "Compression",
-                    "value": "2"
-                  }
-                ],
-                "dependency": [
-                  {
-                    "key": "RUM_CAPTURE_PAGE_DUMP$1",
-                    "value": "0"
-                  }
-                ]
+                "key": "pi",
+                "value": "",
+                "label": "Pages",
+                "controlType": "multiselect",
+                "multiple": "true",
+                "delimiter": ",",
+                "allvalue": "-1",
+                "type": "text",
+                "options": "Pages"
               },
               {
-                "subFormName": "Filter",
-                "controlType": "fieldset",
-                "key": "RUM_CAPTURE_PAGE_DUMP$1",
+                "key": "pct",
+                "value": 100,
+                "label": "Filter(%)",
+                "description": "Filter percentage for specific pages",
+                "controlType": "slider",
+                "type": "number",
+                "required": true,
+                "validators": {
+                  "min": 5,
+                  "max": 100
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "sessionFilter",
+        "value": {},
+        "label": "Session Filter Value",
+        "description": "Filter sessions in NV according to the percentages and conditions specified",
+        "controlType": "json",
+        "required": true,
+        "seq": 15,
+        "fields": [
+          {
+            "key": "spct",
+            "value": 100,
+            "label": "Session Filter(%)",
+            "description": "Filter percentage for Sessions",
+            "controlType": "slider",
+            "type": "number",
+            "validators": {
+              "min": 5,
+              "required": true,
+              "max": 100
+            }
+          },
+          {
+            "key": "bpct",
+            "value": 100,
+            "label": "Browse State Session Filter(%)",
+            "description": "Filter percentage for Browse State Sessions",
+            "controlType": "slider",
+            "type": "number",
+            "required": true,
+            "validators": {
+              "min": 5,
+              "max": 100,
+              "required": true
+            }
+          },
+          {
+            "key": "Bpct",
+            "value": 100,
+            "label": "Buyer State Session Filter(%)",
+            "description": "Filter percentage for Buyer State Sessions",
+            "controlType": "slider",
+            "type": "number",
+            "validators": {
+              "min": 5,
+              "max": 100,
+              "required": true
+            }
+          }
+        ]
+      },
+      {
+        "key": "sessionFlags",
+        "value": [],
+        "label": "Session Flag",
+        "description": "Add flags to store custom information of website (For internal use like callbacks)",
+        "controlType": "chips",
+        "type": "text",
+        "seq": 15,
+        "colspan": 12,
+        "validators": {
+          "required": true
+        }
+      }
+    ]
+  },
+  {
+    "formName": "CONFIG",
+    "key": "CONFIG",
+    "description": "Schema data for config",
+    "fields": [
+      {
+        "key": "pageUrlValues",
+        "value": [],
+        "label": "Page Entries",
+        "controlType": "jsonarray",
+        "description": "Page Entries",
+        "readonly": true,
+        "required": true,
+        "fields": [
+          {
+            "key": "s",
+            "label": "Page Id",
+            "description": "",
+            "value": -1,
+            "controlType": "input",
+            "type": "number",
+            "dbtable": "nvpagemetadatatable",
+            "dbcolumn": "pageid",
+            "readOnly": true
+          },
+          {
+            "key": "c",
+            "label": "URL Pattern",
+            "description": "",
+            "value": -1,
+            "controlType": "input",
+            "type": "text",
+            "dbtable": "nvpagemetadatatable",
+            "dbcolumn": "pattern",
+            "readOnly": true
+          },
+          {
+            "key": "t",
+            "label": "URL Pattern Type",
+            "description": "",
+            "value": "",
+            "controlType": "input",
+            "type": "number",
+            "dbtable": "nvpagemetadatatable",
+            "dbcolumn": "pagenamemethod",
+            "readOnly": true
+          },
+          {
+            "key": "cu",
+            "label": "Complete URL Flag",
+            "description": "",
+            "value": -1,
+            "controlType": "toggle",
+            "type": "boolean",
+            "dbtable": "nvpagemetadatatable",
+            "dbcolumn": "completeurlflag",
+            "readOnly": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "formName": "USERACTION",
+    "key": "USERACTION",
+    "description": "It used to capture all the information when user click on any web page",
+    "fields": [
+      {
+        "key": "enabled",
+        "value": false,
+        "description": "Turn on to cature user activity of user on app",
+        "label": "Enabled",
+        "controlType": "toggle",
+        "type": "boolean",
+        "seq": 0
+      },
+      {
+        "key": "autoFillObserver",
+        "controlType": "json",
+        "label": "AutoFillObserver",
+        "seq": 1,
+        "fields": [
+          {
+            "key": "enabled",
+            "value": false,
+            "description": " Turn On to monitor the auto filled in input fields of web app ",
+            "label": "Enabled",
+            "controlType": "toggle",
+            "type": "boolean",
+            "seq": 0
+          },
+          {
+            "key": "frequency",
+            "value": 500,
+            "label": "Frequency",
+            "controlType": "input",
+            "colspan": 2,
+            "type": "number",
+            "description": "We have to mention the frequency in useraction requests.",
+            "unit": "msec",
+            "required": true,
+            "seq": 0,
+            "validators": {
+              "min": 100,
+              "max": 10000,
+              "required": true
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "formName": "AjaxMonitor",
+    "key": "AjaxMonitor",
+    "description": "It is used to get the details of AJAX requests going in the application",
+    "fields": [
+      {
+        "key": "enabled",
+        "value": true,
+        "description": "Turn on to get the details of AJAX requests going in the application",
+        "label": "Enabled",
+        "controlType": "toggle",
+        "type": "boolean",
+        "seq": 0
+      },
+      {
+        "key": "logFailedAjax",
+        "value": true,
+        "description": "To capture the failed xhr of an ajax request",
+        "colspan": 3,
+        "label": "LogFailedAjax",
+        "controlType": "toggle",
+        "seq": 0
+      },
+      {
+        "key": "captureCrossDomain",
+        "value": false,
+        "colspan": 3,
+        "label": "Capture Cross Domain",
+        "description": "To capture the cross domain in ajax request.",
+        "controlType": "toggle",
+        "seq": 1
+      },
+      {
+        "key": "captureHeader",
+        "value": false,
+        "colspan": 3,
+        "description": "To capture the header in ajax request.",
+        "label": "Capture Header",
+        "controlType": "toggle",
+        "seq": 2
+      },
+      {
+        "key": "capturePostData",
+        "value": false,
+        "colspan": 3,
+        "label": "Capture Post Data",
+        "controlType": "toggle",
+        "description": "To capture the post data in ajax request.",
+        "seq": 3
+      },
+      {
+        "key": "captureResponse",
+        "value": false,
+        "colspan": 3,
+        "label": "Capture Response",
+        "description": "To capture the response in ajax request.",
+        "controlType": "toggle",
+        "seq": 4
+      },
+      {
+        "key": "filters",
+        "label": "Filter Entries",
+        "controlType": "json",
+        "fields": [
+          {
+            "key": "mode",
+            "label": "Mode",
+            "colspan": 3,
+            "description": "Blacklist- (If we select blacklist we cannot see any request in XHR calls) AND Whitelist- (If we select whitelist we can see the request in XHR calls)",
+            "required": true,
+            "controlType": "select",
+            "type": "text",
+            "validators": {
+              "required": true
+            },
+            "options": [
+              {
+                "label": "Blacklist",
+                "value": "blacklist"
+              },
+              {
+                "label": "Whitelist",
+                "value": "whitelist"
+              }
+            ]
+          },
+          {
+            "key": "entry",
+            "label": "Entries",
+            "value": [],
+            "controlType": "jsonarray",
+            "fields": [
+              {
+                "key": "domain",
+                "label": "Domain",
+                "description": "Full or partial name of the domain.",
+                "value": "",
+                "controlType": "input",
+                "colspan": 3,
+                "type": "text"
+              },
+              {
+                "key": "domain_regex",
+                "label": "Domain Pattern",
+                "description": "Regular expression for domain name",
+                "value": "",
+                "colspan": 3,
+                "controlType": "input",
+                "type": "text"
+              },
+              {
+                "key": "path",
+                "label": "Path",
+                "controlType": "input",
+                "description": "Full or partial Path.",
+                "value": "",
+                "colspan": 3,
+                "type": "text"
+              },
+              {
+                "key": "path_regex",
+                "label": "Path Pattern",
+                "controlType": "input",
+                "description": "Regular expression matching Path.",
+                "value": "",
+                "colspan": 3,
+                "type": "text"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "formName": "DOMWATCHER2",
+    "key": "DOMWATCHER2",
+    "description": "Plugin capture dom changes.",
+    "fields": [
+      {
+        "key": "enabled",
+        "label": "Enabled",
+        "description": "After Enable it is used to capture dom-watcher data on nv server",
+        "controlType": "toggle",
+        "value": true,
+        "type": "boolean",
+        "seq": 0
+      },
+      {
+        "key": "compressDomchanges",
+        "label": "Compress Domchanges",
+        "controlType": "toggle",
+        "description": "This keyword is used to capture the dom changes in dom requests",
+        "value": true,
+        "colspan": 3,
+        "seq": 0
+      },
+      {
+        "key": "filterUnexpected",
+        "label": "Filter Unexpected",
+        "controlType": "toggle",
+        "colspan": 3,
+        "description": "This keyword is used to capture the dom changes in dom requests",
+        "value": true,
+        "seq": 1
+      },
+      {
+        "key": "idleTime",
+        "label": "Idle state timeout",
+        "description": "Plugin will record XHR calls and clicks. If there is no xhr call or user actions for this timeout value then state will be changed to Unexpected Changes and All the dom changes during that state will be discarded. ",
+        "controlType": "input",
+        "type": "number",
+        "colspan": 2,
+        "value": 2000,
+        "unit": "msec",
+        "seq": 0,
+        "validators": {
+          "min": 500,
+          "max": 60000
+        }
+      },
+      {
+        "key": "filterElement",
+        "label": "Filter Elements",
+        "description": "This is used to filter all the elements in dom changes in dom requests. There are multiple entries. Filter Elements i.e Add, Edit, Delete.",
+        "controlType": "jsonarray",
+        "value": [],
+        "seq": 2,
+        "options": "2",
+        "fields": [
+          {
+            "key": "aChange",
+            "label": "Attribute Change",
+            "controlType": "toggle",
+            "value": false,
+            "seq": 0
+          },
+          {
+            "key": "element",
+            "label": "Element(xpath)",
+            "controlType": "input",
+            "type": "text",
+            "value": "",
+            "seq": 1
+          },
+          {
+            "key": "pageid",
+            "label": "Pages",
+            "controlType": "multiselect",
+            "multiple": true,
+            "allvalue": "-1",
+            "optional": "true",
+            "value": "",
+            "type": "text",
+            "delimiter": ",",
+            "options": "Pages"
+          }
+        ]
+      },
+      {
+        "key": "XHRModule",
+        "label": "XHR Module",
+        "controlType": "json",
+        "description": "",
+        "seq": 3,
+        "fields": [
+          {
+            "key": "enabled",
+            "label": "Enable",
+            "description": "If enable is true then ajax or xhr records will be captured.",
+            "controlType": "toggle",
+            "value": false,
+            "seq": 0
+          },
+          {
+            "key": "options",
+            "label": "Options",
+            "description": "Options for XHR Module",
+            "controlType": "json",
+            "fields": [
+              {
+                "key": "logFailedAjax",
+                "value": true,
+                "description": "To capture the failed xhr of an ajax request.",
+                "colspan": 3,
+                "label": "LogFailedAjax",
+                "controlType": "toggle",
+                "seq": 0
+              },
+              {
+                "key": "captureCrossDomain",
+                "value": false,
+                "description": "To capture the cross domain in dom request . If it is enabled we can capture otherwise we can not.",
+                "colspan": 3,
+                "label": "Capture Cross Domain",
+                "controlType": "toggle",
+                "seq": 1
+              },
+              {
+                "key": "captureHeader",
+                "value": false,
+                "colspan": 3,
+                "description": "To capture the failed xhr of an ajax request.",
+                "label": "Capture Header",
+                "controlType": "toggle",
+                "seq": 2
+              },
+              {
+                "key": "capturePostData",
+                "value": false,
+                "description": "To capture the post data in ajax request.",
+                "colspan": 3,
+                "label": "Capture Post Data",
+                "controlType": "toggle",
+                "seq": 3
+              },
+              {
+                "key": "captureResponse",
+                "value": false,
+                "colspan": 3,
+                "description": "To capture the response in ajax request.",
+                "label": "Capture Response",
+                "controlType": "toggle",
+                "seq": 4
+              },
+              {
+                "key": "filters",
+                "label": "Filter Entries",
+                "controlType": "json",
+                "required": true,
                 "fields": [
                   {
-                    "controlType": "toggle",
-                    "value": "0",
-                    "label": "Enable",
-                    "key": "RUM_CAPTURE_PAGE_DUMP$2",
-                    "validators": {},
-                    "dependency": [
+                    "key": "mode",
+                    "label": "Mode",
+                    "colspan": 3,
+                    "description": "Blacklist- (If we select blacklist we cannot see any request in XHR calls.) AND  Whitelist- (If we select whitelist we can see the request in XHR calls.)",
+                    "required": true,
+                    "controlType": "select",
+                    "type": "text",
+                    "options": [
                       {
-                        "key": "RUM_CAPTURE_PAGE_DUMP$3",
-                        "value": ""
+                        "label": "Blacklist",
+                        "value": "blacklist"
+                      },
+                      {
+                        "label": "Whitelist",
+                        "value": "whitelist"
                       }
                     ]
                   },
                   {
-                    "controlType": "slider",
-                    "value": "0",
-                    "label": "Filter Value",
-                    "unit": "seconds",
-                    "key": "RUM_CAPTURE_PAGE_DUMP$3",
-                    "validators": {}
+                    "key": "entry",
+                    "label": "Entries",
+                    "value": [],
+                    "controlType": "jsonarray",
+                    "fields": [
+                      {
+                        "key": "domain",
+                        "label": "Domain",
+                        "description": "Full or partial name of the domain.",
+                        "value": "",
+                        "colspan": 3,
+                        "required": false,
+                        "controlType": "input",
+                        "type": "text",
+                        "validators": {
+                          "required": false
+                        }
+                      },
+                      {
+                        "key": "domain_regex",
+                        "label": "Domain Pattern",
+                        "description": "Regular expression for domain name",
+                        "value": "",
+                        "colspan": 3,
+                        "required": false,
+                        "controlType": "input",
+                        "type": "text",
+                        "validators": {
+                          "required": false
+                        }
+                      },
+                      {
+                        "key": "path",
+                        "label": "Path",
+                        "description": "Full or partial Path.",
+                        "value": "",
+                        "colspan": 3,
+                        "controlType": "input",
+                        "required": false,
+                        "type": "text",
+                        "validators": {
+                          "required": false
+                        }
+                      },
+                      {
+                        "key": "path_regex",
+                        "label": "Path Pattern",
+                        "description": "Regular expression matching Path.",
+                        "value": "",
+                        "colspan": 3,
+                        "required": false,
+                        "controlType": "input",
+                        "type": "text",
+                        "validators": {
+                          "required": false
+                        }
+                      }
+                    ]
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "subFormName": "Location Mode",
-            "controlType": "fieldset",
-            "key": "NV_LOCATION_IP_RANGE_FILE",
-            "rtc": false,
-            "description": "It is used for mapping all ipv4 locations.",
-            "fields": [
-              {
-                "controlType": "select",
-                "name": "",
-                "value": "4",
-                "label": "Mode",
-                "key": "NV_LOCATION_IP_RANGE_FILE$0",
-                "unit": "",
-                "options": [
-                  {
-                    "label": "Disable",
-                    "value": "0"
-                  },
-                  {
-                    "label": "IPV4 Only",
-                    "value": "3"
-                  },
-                  {
-                    "label": "IPV4 and IPV6",
-                    "value": "4"
-                  }
-                ],
-                "validators": {},
-                "dependency": [
-                  {
-                    "key": "NV_LOCATION_IP_RANGE_FILE$1",
-                    "value": "0"
-                  }
-                ]
-              },
-              {
-                "controlType": "toggle",
-                "type": "",
-                "value": true,
-                "label": "Show Indian State",
-                "key": "NV_LOCATION_IP_RANGE_FILE$1",
-                "unit": "",
-                "validators": {}
-              }
-            ]
-          },
-          {
-            "subFormName": "Store",
-            "controlType": "fieldset",
-            "key": "NV_JCP_STORE_STATS",
-            "rtc": false,
-            "description": "It is used to enable store and terminals",
-            "fields": [
-              {
-                "controlType": "toggle",
-                "type": "",
-                "value": "0",
-                "label": "Enable",
-                "key": "NV_JCP_STORE_STATS$0",
-                "unit": "",
-                "validators": {},
-                "dependency": [
-                  {
-                    "key": "NV_JCP_STORE_STATS$1",
-                    "value": ""
-                  },
-                  {
-                    "key": "NV_JCP_STORE_STATS$2",
-                    "value": ""
-                  }
-                ]
-              },
-              {
-                "controlType": "input",
-                "type": "number",
-                "value": "",
-                "colspan": 2,
-                "label": "Total number of terminals",
-                "key": "NV_JCP_STORE_STATS$1",
-                "unit": "",
-                "validators": {
-                  "min": 0,
-                  "max": 99
-                }
-              },
-              {
-                "controlType": "select",
-                "type": "",
-                "colspan": 12,
-                "value": "JCPenney",
-                "label": "Store Client",
-                "key": "NV_JCP_STORE_STATS$2",
-                "unit": "kohls",
-                "options": [
-                  {
-                    "value": "JCPenney",
-                    "label": "JCPenney"
-                  },
-                  {
-                    "value": "kohls",
-                    "label": "Kohls"
-                  },
-                  {
-                    "value": "others",
-                    "label": "Others"
-                  }
-                ],
-                "validators": {}
-              }
-            ]
-          },
-          {
-            "subFormName": "Resource Domain",
-            "key": "NV_ENABLE_RESOURCE_DOMAIN_STATS",
-            "rtc": false,
-            "controlType": "fieldset",
-            "description": "It is used to specify how many resource domain to capture.",
-            "fields": [
-              {
-                "controlType": "toggle",
-                "key": "NV_ENABLE_RESOURCE_DOMAIN_STATS$0",
-                "description": "It will enable NV_RESOURCE_DOMIAIN settings",
-                "type": "",
-                "value": "",
-                "label": "Enable",
-                "unit": "",
-                "validators": {},
-                "dependency": [
-                  {
-                    "key": "NV_ENABLE_RESOURCE_DOMAIN_STATS$1",
-                    "value": ""
-                  },
-                  {
-                    "key": "NV_ENABLE_RESOURCE_DOMAIN_STATS$2",
-                    "value": ""
-                  }
-                ]
-              },
-              {
-                "controlType": "input",
-                "key": "NV_ENABLE_RESOURCE_DOMAIN_STATS$1",
-                "name": "",
-                "type": "number",
-                "value": 50,
-                "label": "Resource Domain Count",
-                "unit": "",
-                "validators": {
-                  "min": 1,
-                  "max": 1024
-                }
-              },
-              {
-                "controlType": "input",
-                "key": "NV_ENABLE_RESOURCE_DOMAIN_STATS$2",
-                "name": "",
-                "type": "number",
-                "value": 86400,
-                "label": "Resource Domain Frequency",
-                "unit": "",
-                "validators": {}
-              }
-            ]
-          },
-          {
-            "subFormName": "High Page Response Mail",
-            "controlType": "fieldset",
-            "key": "SEND_MAIL_ON_HIGH_PAGE_RESPONSE",
-            "rtc": false,
-            "description": "It is used to enable high page response mail  ",
-            "fields": [
-              {
-                "controlType": "toggle",
-                "type": "",
-                "value": "1",
-                "label": "Send Mail On High Response",
-                "key": "SEND_MAIL_ON_HIGH_PAGE_RESPONSE$0",
-                "unit": "",
-                "validators": {}
-              }
-            ]
-          },
-          {
-            "subFormName": "Form Analytic",
-            "controlType": "fieldset",
-            "key": "ENABLE_FORM_ANALYTICS",
-            "rtc": true,
-            "description": "It is used to analyze user behaviour in online forms.",
-            "fields": [
-              {
-                "controlType": "toggle",
-                "type": "",
-                "value": "",
-                "label": "Enable Form Stats",
-                "key": "ENABLE_FORM_ANALYTICS$0",
-                "unit": "",
-                "validators": {},
-                "dependency": [
-                  {
-                    "key": "ENABLE_FORM_ANALYTICS_MAX_FIELD$0",
-                    "value": ""
-                  },
-                  {
-                    "key": "ENABLE_FORM_ANALYTICS_MAX_FORM$0",
-                    "value": ""
-                  }
-                ]
-              },
-              {
-                "controlType": "input",
-                "name": "",
-                "type": "number",
-                "value": 24,
-                "label": "Max Form per Page",
-                "key": "ENABLE_FORM_ANALYTICS_MAX_FORM$0",
-                "unit": "",
-                "validators": {}
-              },
-              {
-                "controlType": "input",
-                "name": "",
-                "type": "number",
-                "value": 16,
-                "label": "Max Field per form",
-                "key": "ENABLE_FORM_ANALYTICS_MAX_FIELD$0",
-                "unit": "",
-                "validators": {}
               }
             ]
           }
         ]
+      }
+    ]
+  },
+  {
+    "formName": "CHECKPOINT",
+    "key": "CHECKPOINT",
+    "description": "CheckPoints are used to match a certain string which is displayed on the site on the occurence of an event such as Coupon expired,Item out of Stock,Session Expired etc. The Checkpoints are mapped with Events. When Strings is matched,associated Event name is displayed in Session",
+    "fields": [
+      {
+        "key": "enabled",
+        "value": true,
+        "description": "Turn On to caputure these data during session recording",
+        "label": "Enabled",
+        "controlType": "toggle",
+        "seq": 0
       },
       {
-        "formName": "Advanced Setting",
-        "key": "Advanced Setting",
-        "icon": "",
+        "key": "entry",
+        "label": "Entries",
+        "value": [],
+        "controlType": "jsonarray",
+        "description": "Checkpoint Entries",
+        "readonly": true,
         "fields": [
           {
-            "subFormName": "CSV Buffer",
-            "key": "RUM_CSV_BUFFER",
-            "rtc": false,
-            "description": "it defines when the buffer content is transferred to csv file. Ex. 40 means when 40% buffer is filled it is transferred to csv file.",
-            "controlType": "fieldset",
-            "fields": [
-              {
-                "controlType": "input",
-                "key": "RUM_CSV_BUFFER$0",
-                "name": "",
-                "type": "number",
-                "value": 10,
-                "label": "CSV Buffer Size",
-                "unit": "KB",
-                "validators": {
-                  "min": 1024,
-                  "max": 1048510
-                }
-              },
-              {
-                "controlType": "slider",
-                "key": "RUM_CSV_BUFFER$1",
-                "type": "",
-                "value": 40,
-                "label": "Threshold Percent ",
-                "unit": "",
-                "validators": {}
-              }
-            ]
+            "key": "name",
+            "label": "Name",
+            "description": "Specify name of Checkpoint",
+            "value": -1,
+            "controlType": "input",
+            "type": "text",
+            "dbtable": "nvcheckpointtable",
+            "dbcolumn": "cpname",
+            "readOnly": true
           },
           {
-            "subFormName": "CSP Mode",
-            "key": "ENABLE_NV_CSP",
-            "rtc": false,
-            "controlType": "fieldset",
+            "key": "event",
+            "label": "Event Name",
+            "description": "Name of event related to checkpoint",
+            "value": -1,
+            "controlType": "input",
+            "type": "text",
+            "dbtable": "nvcheckpointtable",
+            "dbcolumn": "eventname",
+            "readOnly": true
+          },
+          {
+            "key": "pages",
+            "label": "Pages",
+            "description": "",
+            "value": -1,
+            "controlType": "input",
+            "type": "text",
+            "dbtable": "nvcheckpointtable",
+            "dbcolumn": "pages",
+            "readOnly": true
+          },
+          {
+            "key": "scope",
+            "label": "Scope",
+            "description": "",
+            "value": -1,
+            "controlType": "input",
+            "type": "number",
+            "dbtable": "nvcheckpointtable",
+            "dbcolumn": "scope",
+            "readOnly": true
+          },
+          {
+            "key": "selector",
+            "label": "Selector",
+            "description": "",
+            "value": -1,
+            "controlType": "input",
+            "type": "text",
+            "dbtable": "nvcheckpointtable",
+            "dbcolumn": "selector",
+            "readOnly": true
+          },
+          {
+            "key": "fail",
+            "label": "Fail",
+            "description": "",
+            "value": -1,
+            "controlType": "input",
+            "type": "number",
+            "dbtable": "nvcheckpointtable",
+            "dbcolumn": "fail",
+            "readOnly": true
+          },
+          {
+            "key": "mode",
+            "label": "Mode",
+            "description": "",
+            "value": -1,
+            "controlType": "input",
+            "type": "number",
+            "dbtable": "nvcheckpointtable",
+            "dbcolumn": "searchmode",
+            "readOnly": true
+          },
+          {
+            "key": "arg1",
+            "label": "Arg1",
+            "description": "Argument 1",
+            "controlType": "json",
+            "required": true,
+            "dbtable": "nvcheckpointtable",
+            "dbcolumn": "cpid",
+            "jointable": "nvcheckpointtable",
+            "joincolumn": "cpid",
+            "seq": 0,
+            "readOnly": true,
             "fields": [
               {
-                "controlType": "toggle",
-                "key": "ENABLE_NV_CSP$0",
-                "name": "",
-                "type": "0",
-                "value": "1",
-                "label": "Enable CSP stats",
-                "unit": "",
-                "validators": {},
-                "dependency": [
-                  {
-                    "key": "ENABLE_NV_CSP$1",
-                    "value": ""
-                  },
-                  {
-                    "key": "ENABLE_NV_CSP$2",
-                    "value": ""
-                  }
-                ]
-              },
-              {
+                "key": "text",
+                "label": "Text",
                 "controlType": "input",
-                "key": "ENABLE_NV_CSP$1",
-                "name": "",
                 "type": "text",
-                "value": "nv_csp",
-                "label": "CSP Url",
-                "unit": "",
-                "validators": {}
+                "value": -1,
+                "dbtable": "nvcheckpointtable",
+                "dbcolumn": "searchtext",
+                "seq": 0
               },
               {
-                "controlType": "toggle",
-                "key": "ENABLE_NV_CSP$2",
-                "name": "",
-                "type": "",
-                "value": "0",
-                "label": "Dump complete error",
-                "unit": "",
-                "validators": {}
-              }
-            ]
-          },
-          {
-            "subFormName": "Performance Timing Outlier",
-            "key": "NV_TIMING_OUTLIER",
-            "rtc": false,
-            "description": "This is used to enable the NV_TIMING_OUTLIER  ",
-            "controlType": "fieldset",
-            "fields": [
-              {
-                "controlType": "toggle",
-                "key": "NV_TIMING_OUTLIER$0",
-                "type": "",
-                "value": "0",
-                "label": "Enable",
-                "unit": "",
-                "validators": {},
-                "dependency": [
-                  {
-                    "key": "NV_TIMING_OUTLIER$1",
-                    "value": "120000"
-                  },
-                  {
-                    "key": "NV_TIMING_OUTLIER$2",
-                    "value": "120000"
-                  },
-                  {
-                    "key": "NV_TIMING_OUTLIER$3",
-                    "value": "120000"
-                  }
-                ]
+                "key": "searchregexp",
+                "label": "Regex",
+                "controlType": "input",
+                "type": "text",
+                "value": -1,
+                "dbtable": "nvcheckpointtable",
+                "dbcolumn": "searchregexp",
+                "seq": 0
               },
               {
+                "key": "searchic",
+                "label": "IC",
                 "controlType": "input",
-                "key": "NV_TIMING_OUTLIER$1",
-                "type": "number",
-                "value": 120000,
-                "label": "Max onload  ",
-                "unit": "",
-                "validators": {}
-              },
-              {
-                "controlType": "input",
-                "key": "NV_TIMING_OUTLIER$2",
-                "type": "number",
-                "value": 120000,
-                "label": "Max Dom Content load ",
-                "unit": "",
-                "validators": {}
-              },
-              {
-                "controlType": "input",
-                "key": "NV_TIMING_OUTLIER$3",
-                "type": "number",
-                "value": 120000,
-                "label": "Max DOM Time ",
-                "unit": "",
-                "validators": {}
-              }
-            ]
-          },
-          {
-            "subFormName": "Page Loop Event",
-            "key": "NV_PAGE_LOOP_THRESHOLD",
-            "rtc": true,
-            "controlType": "fieldset",
-            "description": " If a session has continuous repetition of a page and it reaches threshold value then the loop event wil be raised.",
-            "fields": [
-              {
-                "controlType": "toggle",
-                "key": "NV_PAGE_LOOP_THRESHOLD$0",
-                "name": "",
-                "type": "",
-                "value": "1",
-                "label": "Enable",
-                "unit": "",
-                "validators": {},
-                "dependency": [
-                  {
-                    "key": "NV_PAGE_LOOP_THRESHOLD$1",
-                    "value": "0"
-                  }
-                ]
-              },
-              {
-                "controlType": "input",
-                "key": "NV_PAGE_LOOP_THRESHOLD$1",
-                "type": "number",
-                "value": 5,
-                "label": "Page Count ",
-                "unit": "",
-                "validators": {
-                  "min": 2,
-                  "max": 10
-                }
-              }
-            ]
-          },
-          {
-            "subFormName": "DOS Attack Handling",
-            "key": "DOS_ATTACK",
-            "rtc": true,
-            "controlType": "fieldset",
-            "description": "This setting is used to enable the DOS_ATTACK ",
-            "fields": [
-              {
-                "controlType": "toggle",
-                "key": "DOS_ATTACK$0",
-                "type": "",
-                "value": "1",
-                "label": "Enable",
-                "unit": "",
-                "validators": {},
-                "dependency": [
-                  {
-                    "key": "DOS_ATTACK$1",
-                    "value": "0"
-                  }
-                ]
-              },
-              {
-                "controlType": "input",
-                "key": "DOS_ATTACK$1",
-                "type": "number",
-                "value": 0,
-                "label": "Maximum Request",
-                "unit": "",
-                "validators": {}
-              }
-            ]
-          },
-          {
-            "subFormName": "Dynamic Metadata RTC",
-            "key": "DYNAMIC_METADATA_RTC",
-            "rtc": false,
-            "controlType": "fieldset",
-            "description": "It allows runtime changes for meta-data attributes e.g. transactions.",
-            "fields": [
-              {
-                "controlType": "toggle",
-                "key": "METADATA_RTC$0",
-                "type": "",
-                "value": "1",
-                "label": "enable",
-                "unit": "",
-                "validators": {}
-              }
-            ]
-          },
-          {
-            "subFormName": "Session Duration Threshold Event",
-            "key": "NV_SESSION_DURATION_THRESHOLD",
-            "rtc": true,
-            "description": "This setting is used to  enable the session duration threshold value. ",
-            "controlType": "fieldset",
-            "fields": [
-              {
-                "controlType": "input",
-                "key": "NV_SESSION_DURATION_THRESHOLD$0",
-                "type": "number",
-                "value": 1,
-                "label": "Session Duration Value",
-                "unit": "",
-                "validators": {}
-              }
-            ]
-          },
-          {
-            "subFormName": "NV CORS ORIGIN",
-            "key": "NV_CORS_ORIGIN",
-            "rtc": false,
-            "fields": [
-              {
-                "controlType": "input",
-                "key": "NV_CORS_ORIGIN$0",
-                "description": "This setting used to set the Access-Control-Allow-Origin header  ",
-                "type": "",
-                "value": "",
-                "label": "URL ",
-                "unit": "",
-                "validators": {}
-              }
-            ]
-          },
-          {
-            "subFormName": "NV TOP DIMENSION SETTINGS",
-            "key": "NV_TOP_DIMENSION_SETTINGS ",
-            "rtc": false,
-            "controlType": "fieldset",
-            "fields": [
-              {
-                "controlType": "toggle",
-                "key": "NV_TOP_DIMENSION_SETTINGS$0",
-                "description": "This is used to enable the NV_TOP_DIMENSION_SETTINGS   ",
-                "type": "",
-                "value": "",
-                "label": "Enable",
-                "unit": "",
-                "validators": {},
-                "dependency": [
-                  {
-                    "key": "NV_TOP_DIMENSION_SETTINGS$1",
-                    "value": ""
-                  },
-                  {
-                    "key": "NV_TOP_DIMENSION_SETTINGS$2",
-                    "value": ""
-                  },
-                  {
-                    "key": "NV_TOP_DIMENSION_SETTINGS$3",
-                    "value": ""
-                  }
-                ]
-              },
-              {
-                "controlType": "input",
-                "key": "NV_TOP_DIMENSION_SETTINGS$1",
-                "type": "number",
-                "value": 24,
-                "label": "Duration in hours ",
-                "unit": "",
-                "validators": {}
-              },
-              {
-                "controlType": "input",
-                "key": "NV_TOP_DIMENSION_SETTINGS$2",
-                "type": "number",
-                "value": 25,
-                "label": "Count ",
-                "unit": "",
-                "validators": {}
-              },
-              {
-                "controlType": "input",
-                "key": "NV_TOP_DIMENSION_SETTINGS$3",
-                "type": "number",
-                "value": 24,
-                "label": "Update frequency in hours ",
-                "unit": "",
-                "validators": {}
-              }
-            ]
-          },
-          {
-            "subFormName": "ENABLE REVENUE STATS ",
-            "key": "NV_ENABLE_ORDER_INFO ",
-            "rtc": false,
-            "controlType": "fieldset",
-            "fields": [
-              {
-                "controlType": "toggle",
-                "key": "NV_ENABLE_ORDER_INFO$0",
-                "description": "This settings is used to enable revenue stats metrices on the basis of OrderTotal and OrderCount",
-                "type": "",
-                "value": "",
-                "label": "Enable",
-                "unit": "",
-                "validators": {},
-                "dependency": [
-                  {
-                    "key": "NV_ENABLE_ORDER_INFO$1",
-                    "value": " "
-                  },
-                  {
-                    "key": "NV_ENABLE_ORDER_INFO$2",
-                    "value": ""
-                  },
-                  {
-                    "key": "NV_ENABLE_ORDER_INFO$3",
-                    "value": ""
-                  }
-                ]
-              },
-              {
-                "controlType": "input",
-                "key": "NV_ENABLE_ORDER_INFO$1",
-                "type": "number",
-                "value": "",
-                "label": "ChannelId",
-                "unit": "",
-                "validators": {}
-              },
-              {
-                "controlType": "input",
-                "key": "NV_ENABLE_ORDER_INFO$2",
-                "type": "number",
-                "value": "",
-                "label": "OrderTotal",
-                "unit": "",
-                "validators": {}
-              },
-              {
-                "controlType": "input",
-                "key": "NV_ENABLE_ORDER_INFO$3",
-                "type": "number",
-                "value": "",
-                "label": "OrderCount",
-                "unit": "",
-                "validators": {}
-              }
-            ]
-          },
-          {
-            "subFormName": "NV ENABLE AUTO PATTERN ",
-            "key": "NV_ENABLE_AUTO_PATTERN",
-            "rtc": false,
-            "controlType": "fieldset",
-            "fields": [
-              {
-                "controlType": "toggle",
-                "key": "NV_ENABLE_AUTO_PATTERN$0",
-                "description": "This setting used to enable the NV_ENABLE_AUTO_PATTERN ",
-                "type": "",
-                "value": 1,
-                "label": "Enable",
-                "unit": "",
-                "validators": {}
-              }
-            ]
-          },
-          {
-            "subFormName": "ND Exception Event",
-            "key": "ND_EXCEPTION_EVENT",
-            "rtc": false,
-            "description": "This setting is used to enable the ND_EXCEPTION event. ",
-            "controlType": "fieldset",
-            "fields": [
-              {
-                "controlType": "toggle",
-                "key": "ND_EXCEPTION_EVENT$0",
-                "type": "",
-                "value": "1",
-                "label": "Enable",
-                "unit": "",
-                "validators": {}
+                "type": "text",
+                "value": -1,
+                "dbtable": "nvcheckpointtable",
+                "dbcolumn": "searchic",
+                "seq": 0
               }
             ]
           }
@@ -773,523 +1288,777 @@
     ]
   },
   {
-    "formName": "Partition Setting",
-    "key": "Partition Setting",
-    "icon": "fa fa-window-restore",
+    "formName": "ResourceTimingFilter",
+    "key": "resourceTimingFilter",
+    "description": "Filter resources on the basis of percentage and onload time if enabled",
     "fields": [
       {
-        "subFormName": "Partition",
-        "controlType": "fieldset",
-        "rtc": false,
-        "key": "PARTITION_SETTINGS",
-        "fields": [
-          {
-            "controlType": "toggle",
-            "type": "",
-            "value": "",
-            "label": "Enable",
-            "key": "PARTITION_SETTINGS$0",
-            "unit": "",
-            "validators": {},
-            "dependency": [
-              {
-                "key": "PARTITION_SETTINGS$1",
-                "value": ""
-              },
-              {
-                "key": "PARTITION_SETTINGS$2",
-                "value": ""
-              }
-            ]
-          },
-          {
-            "controlType": "toggle",
-            "type": "",
-            "value": "",
-            "label": "Sync on First Switch",
-            "key": "PARTITION_SETTINGS$1",
-            "unit": "",
-            "validators": {}
-          },
-          {
-            "controlType": "input",
-            "type": "number",
-            "value": 8,
-            "label": "Duration",
-            "key": "PARTITION_SETTINGS$2",
-            "unit": "hrs",
-            "validators": {
-              "min": 1,
-              "max": 24
-            }
-          }
-        ]
+        "key": "mode",
+        "value": true,
+        "description": "Turn On To Filter resources on the basis of percentage and onload time",
+        "label": "Mode",
+        "controlType": "toggle",
+        "seq": 0
+      },
+      {
+        "key": "pct",
+        "value": 10,
+        "label": "Percentage",
+        "description": "To capture the percentage of resources in the timing request according to the requirement.",
+        "controlType": "slider",
+        "colspan": 3,
+        "type": "number",
+        "seq": 1,
+        "validators": {
+          "required": true
+        }
+      },
+      {
+        "key": "maxPageLoadTime",
+        "value": 10000,
+        "description": "To capture the maximum page load time in timing request.",
+        "label": "Max PageLoad Time",
+        "controlType": "input",
+        "colspan": 3,
+        "type": "number",
+        "unit": "msec",
+        "seq": 2,
+        "validators": {
+          "required": true
+        }
       }
     ]
   },
   {
-    "formName": "Multi Disk Setting",
-    "key": "Multi Disk Setting",
-    "icon": "fa fa-code-fork",
+    "formName": "OCXFilter",
+    "key": "ocxFilter",
+    "description": "Filter OCX data ie useractions/pagedump/domwatchers if enabled and session is not interesting",
     "fields": [
       {
-        "controlType": "custom",
-        "key": "multi",
-        "value": "",
-        "route": "multi"
+        "key": "enabled",
+        "value": false,
+        "description": "Turn on on enable OCX data filtering on pages.",
+        "label": "Enabled",
+        "colspan": 3,
+        "controlType": "toggle",
+        "seq": 0
+      },
+      {
+        "key": "pct",
+        "value": 50,
+        "description": "This will specify the applicability of OCXFilter on pages",
+        "label": "PCT",
+        "colspan": 3,
+        "controlType": "slider",
+        "required": true,
+        "type": "number",
+        "seq": 0,
+        "validators": {
+          "min": 1,
+          "max": 100,
+          "required": true
+        }
+      },
+      {
+        "key": "maxPage",
+        "value": 3,
+        "colspan": 2,
+        "description": "Specify maximum number of pages after which you want the OCX data to be flushed for session",
+        "label": "Maximum Page",
+        "controlType": "input",
+        "type": "number",
+        "seq": 0,
+        "validators": {
+          "required": true
+        }
+      },
+      {
+        "key": "batchSize",
+        "value": 0,
+        "colspan": 2,
+        "description": "It Sends the request's data in the specified batch size",
+        "label": "Batch Size",
+        "controlType": "input",
+        "type": "number",
+        "seq": 0,
+        "validators": {
+          "required": true
+        }
+      },
+      {
+        "key": "dumpState",
+        "value": [],
+        "label": "Dump State",
+        "description": "Specify state ie BROWSER_STATE:1, SESSION_STATE:2, BUYER_STATE:3",
+        "controlType": "chips",
+        "seq": 0,
+        "colspan": 12,
+        "validators": {
+          "required": true
+        }
       }
     ]
   },
   {
-    "formName": "Cluster Setting",
-    "key": "Cluster Setting",
-    "icon": "fa fa-yelp",
-    "fields": []
-  },
-  {
-    "formName": "Overload Control Setting",
-    "key": "Overload Control Setting",
-    "icon": "fa fa-thermometer-full",
+    "formName": "SPA",
+    "key": "SPA",
+    "description": "It Used to monitor single page application, based on angular/history framework",
     "fields": [
       {
-        "subFormName": "Overload Control",
-        "key": "NV_OVERLOAD_CONTROL",
-        "rtc": false,
-        "controlType": "fieldset",
-        "fields": [
-          {
-            "controlType": "toggle",
-            "key": "NV_OVERLOAD_CONTROL$0",
-            "type": "",
-            "colspan": 12,
-            "value": "0",
-            "label": "Enable",
-            "unit": "",
-            "validators": {},
-            "dependency": [
-              {
-                "key": "NV_OVERLOAD_CONTROL$1",
-                "value": ""
-              },
-              {
-                "key": "NV_OVERLOAD_CONTROL$2",
-                "value": ""
-              },
-              {
-                "key": "NV_OVERLOAD_CONTROL$3",
-                "value": ""
-              },
-              {
-                "key": "NV_OVERLOAD_CONTROL$4",
-                "value": ""
-              },
-              {
-                "key": "NV_OVERLOAD_CONTROL$5",
-                "value": ""
-              }
-            ]
-          },
-          {
-            "controlType": "slider",
-            "key": "NV_OVERLOAD_CONTROL$1",
-            "type": "",
-            "colspan": 3,
-            "value": "",
-            "label": "System busy critical threshold ",
-            "unit": "",
-            "validators": {}
-          },
-          {
-            "controlType": "slider",
-            "key": "NV_OVERLOAD_CONTROL$2",
-            "colspan": 3,
-            "type": "",
-            "value": "",
-            "label": "System busy Major threshold ",
-            "unit": "",
-            "validators": {}
-          },
-          {
-            "controlType": "slider",
-            "key": "NV_OVERLOAD_CONTROL$4",
-            "type": "",
-            "colspan": 3,
-            "value": "",
-            "label": "Control Step Filter Percentage ",
-            "unit": "",
-            "validators": {}
-          },
-          {
-            "controlType": "input",
-            "key": "NV_OVERLOAD_CONTROL$3",
-            "type": "number",
-            "value": "",
-            "colspan": 2,
-            "label": "Control Step Interval  ",
-            "unit": "sec",
-            "validators": {}
-          },
-          {
-            "controlType": "slider",
-            "key": "NV_OVERLOAD_CONTROL$5",
-            "type": "",
-            "value": "",
-            "colspan": 3,
-            "label": "Max Filter Percentage ",
-            "unit": "",
-            "validators": {}
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "formName": "DB Upload Setting",
-    "key": "DB Upload Setting",
-    "icon": "fa fa-cloud-upload",
-    "fields": [
+        "key": "enabled",
+        "value": false,
+        "description": "Turn on to monitor single page application, based on angular/history framework",
+        "label": "Enabled",
+        "controlType": "toggle",
+        "seq": 0
+      },
       {
-        "subFormName": "DB Upload",
-        "controlType": "fieldset",
-        "key": "NVDBU_UPLOAD_TOOL",
-        "fields": [
+        "key": "framework",
+        "value": "history",
+        "label": "Framework",
+        "description": "To capture the SPA framework.",
+        "controlType": "multiselect",
+        "type": "text",
+        "options": [
           {
-            "controlType": "select",
-            "name": "",
-            "type": "",
-            "value": "",
-            "label": "Upload Tool",
-            "key": "NVDBU_UPLOAD_TOOL$0",
-            "unit": "",
-            "options": [
-              {
-                "label": "Copy",
-                "value": "copy"
-              },
-              {
-                "label": "PG_Bulkload",
-                "value": "pg_bulkload"
-              }
-            ],
-            "validators": {}
+            "label": "angular",
+            "value": "angular"
           },
           {
-            "subFormName": "DB Trace",
-            "controlType": "fieldset",
-            "key": "NRDBU_TRACE_LEVEL",
-            "rtc": true,
-            "fields": [
-              {
-                "controlType": "select",
-                "name": "",
-                "type": "",
-                "value": "",
-                "label": "Trace Level",
-                "key": "NRDBU_TRACE_LEVEL$0",
-                "unit": "",
-                "options": [
-                  {
-                    "label": "1",
-                    "value": "1"
-                  },
-                  {
-                    "label": "2",
-                    "value": "2"
-                  },
-                  {
-                    "label": "3",
-                    "value": "3"
-                  },
-                  {
-                    "label": "4",
-                    "value": "4"
-                  }
-                ],
-                "validators": {}
-              },
-              {
-                "controlType": "input",
-                "name": "",
-                "type": "number",
-                "value": "",
-                "label": "Trace File rollover size",
-                "key": "NRDBU_TRACE_LEVEL$1",
-                "unit": "MB",
-                "validators": {}
-              },
-              {
-                "controlType": "input",
-                "type": "number",
-                "value": "",
-                "rtc": true,
-                "label": "DB Buffer Size Settings",
-                "key": "NVDBU_BUFFER_SIZE$0",
-                "unit": "MB",
-                "validators": {}
-              },
-              {
-                "controlType": "input",
-                "type": "number",
-                "value": "",
-                "rtc": true,
-                "label": "DB Idle Time Settings ",
-                "key": "NVDBU_IDLE_TIME$0",
-                "unit": "Minutes",
-                "validators": {}
-              },
-              {
-                "controlType": "input",
-                "name": "",
-                "type": "number",
-                "value": "",
-                "rtc": true,
-                "label": "Cycle Settings ",
-                "key": "NVDBU_NUM_CYCLES$0",
-                "unit": "",
-                "validators": {}
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "formName": "Memory Reporter Setting",
-    "key": "Memory Reporter Setting",
-    "icon": "fa fa-microchip",
-    "fields": [
-      {
-        "subFormName": "Memory Reporter",
-        "controlType": "fieldset",
-        "rtc": true,
-        "key": "NV_REPORTING_TRACE_LEVEL",
-        "fields": [
-          {
-            "controlType": "select",
-            "name": "",
-            "type": "",
-            "value": "1",
-            "label": "Trace Level",
-            "key": "NV_REPORTING_TRACE_LEVEL$0",
-            "description": "It define nv trace log level",
-            "unit": "",
-            "options": [
-              {
-                "label": "1",
-                "value": "1"
-              },
-              {
-                "label": "2",
-                "value": "2"
-              },
-              {
-                "label": "3",
-                "value": "3"
-              },
-              {
-                "label": "4",
-                "value": "4"
-              }
-            ],
-            "validators": {}
+            "label": "history",
+            "value": "history"
           },
           {
-            "controlType": "input",
-            "type": "number",
-            "value": 10,
-            "label": " Trace File rollover size ",
-            "key": "NV_REPORTING_TRACE_LEVEL$1",
-            "description": "It define nv trace log level size",
-            "unit": "MB",
-            "validators": {
-              "min": 1,
-              "max": 2048
-            }
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "formName": "Aggregator Setting",
-    "key": "Aggregator Setting",
-    "icon": "fa fa-sitemap",
-    "fields": [
-      {
-        "subFormName": "NV_AGGREGATOR",
-        "controlType": "fieldset",
-        "key": "NV_AGGREGATOR_RUN_MODE",
-        "rtc": false,
-        "fields": [
-          {
-            "controlType": "toggle",
-            "type": "",
-            "value": "1",
-            "label": "Run Mode",
-            "key": "NV_AGGREGATOR_RUN_MODE$0",
-            "description": "It define the aggregator run mode ",
-            "unit": "",
-            "validators": {},
-            "dependency": [
-              {
-                "key": "NV_AGG_REPORTING_TRACE_LEVEL$0",
-                "value": ""
-              },
-              {
-                "key": "NV_AGG_REPORTING_TRACE_LEVEL$1",
-                "value": ""
-              }
-            ]
-          },
-          {
-            "controlType": "input",
-            "type": "number",
-            "value": 1,
-            "label": "Trace Level",
-            "key": "NV_AGG_REPORTING_TRACE_LEVEL$0",
-            "description": "It define nv trace log level",
-            "unit": "",
-            "validators": {
-              "min": 1,
-              "max": 4
-            }
-          },
-          {
-            "controlType": "input",
-            "name": "",
-            "type": "number",
-            "value": 10,
-            "label": " Trace File rollover size ",
-            "key": "NV_AGG_REPORTING_TRACE_LEVEL$1",
-            "description": "It define nv trace log level size",
-            "unit": "MB",
-            "validators": {
-              "min": 1,
-              "max": 2048
-            }
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "formName": "Bot Detection Setting",
-    "key": "BOT_DETECTION_ENABLE",
-    "icon": "fa fa-grav",
-    "fields": [
-      {
-        "subFormName": "Bot Detection Enable",
-        "key": "BOT_DETECTION_ENABLE",
-        "rtc": true,
-        "controlType": "fieldset",
-        "description": "It indicates when SID will expire and new SID will generate.",
-        "fields": [
-          {
-            "controlType": "toggle",
-            "key": "BOT_DETECTION_ENABLE$0",
-            "name": "",
-            "type": "number",
-            "value": 0,
-            "label": "Bot Detection Mode",
-            "unit": "",
-            "validators": {},
-            "dependency": [
-              {
-                "key": "BOT_DETECTION_ENABLE$1",
-                "value": ""
-              }
-            ]
-          },
-          {
-            "controlType": "input",
-            "key": "BOT_DETECTION_ENABLE$1",
-            "name": "",
-            "type": "number",
-            "value": 0,
-            "label": "Default_Bot_Pct",
-            "unit": "",
-            "validators": {}
+            "label": "hashchange",
+            "value": "hashchange"
           }
         ]
       },
       {
-        "subFormName": "Bot Detection Checksum",
-        "key": "NV_BD_CHECKSUM",
-        "rtc": true,
-        "controlType": "fieldset",
-        "description": "It indicates when SID will expire and new SID will generate.",
-        "fields": [
-          {
-            "controlType": "input",
-            "key": "NV_BD_CHECKSUM$0",
-            "name": "",
-            "type": "number",
-            "value": 0,
-            "label": "Checksum Type",
-            "unit": "",
-            "validators": {}
-          },
-          {
-            "controlType": "input",
-            "key": "NV_BD_CHECKSUM$1",
-            "type": "text",
-            "value": "",
-            "label": "Pageid List",
-            "unit": "",
-            "validators": {}
-          },
-          {
-            "controlType": "input",
-            "key": "NV_BD_CHECKSUM$2",
-            "name": "",
-            "type": "text",
-            "value": "",
-            "label": "Checksum",
-            "unit": "",
-            "validators": {}
-          }
-        ]
+        "key": "ignoreFrame",
+        "value": true,
+        "label": "Ignore Frame",
+        "description": "Ignore frame load while calculation of onload for soft navigated pages",
+        "controlType": "toggle",
+        "type": "boolean"
       },
       {
-        "subFormName": "NV SCA MODE",
-        "key": "NV_SCA_MODE",
-        "rtc": true,
-        "controlType": "fieldset",
-        "description": "It indicates when SID will expire and new SID will generate.",
+        "key": "ignoreImg",
+        "value": false,
+        "label": "Ignore Image",
+        "description": "Ignore image load while calculation of onload for soft navigated pages",
+        "controlType": "toggle",
+        "type": "boolean"
+      },
+      {
+        "key": "XHRModule",
+        "label": "XHR Module",
+        "controlType": "json",
+        "description": "XHR Module for calculation of load time of soft transition. ",
         "fields": [
           {
-            "controlType": "select",
-            "key": "NV_SCA_MODE$0",
-            "value": "2",
-            "label": "NV SCA MODE",
-            "unit": "",
-            "options": [
+            "key": "enabled",
+            "value": true,
+            "type": "boolean",
+            "controlType": "toggle",
+            "label": "Enable",
+            "colspan": 3
+          },
+          {
+            "key": "options",
+            "controlType": "json",
+            "label": "Options",
+            "description": "Configuration of XHRModule",
+            "fields": [
               {
-                "label": "Generate and Execute Puzzle",
-                "value": "1"
+                "key": "logFailedAjax",
+                "description": "To capture the failed xhr of an SPA request.",
+                "value": true,
+                "colspan": 3,
+                "label": "LogFailedAjax",
+                "controlType": "toggle",
+                "seq": 0
               },
               {
-                "label": "Generate and Execute Js Puzzle",
-                "value": "2"
+                "key": "captureCrossDomain",
+                "value": false,
+                "colspan": 3,
+                "label": "Capture Cross Domain",
+                "description": "To capture the cross domain in SPA request.",
+                "controlType": "toggle",
+                "seq": 1
+              },
+              {
+                "key": "captureHeader",
+                "value": false,
+                "colspan": 3,
+                "description": "To capture the failed xhr of an SPA request.",
+                "label": "Capture Header",
+                "controlType": "toggle",
+                "seq": 2
+              },
+              {
+                "key": "capturePostData",
+                "value": false,
+                "colspan": 3,
+                "label": "Capture Post Data",
+                "description": "To capture the post data in SPA request.",
+                "controlType": "toggle",
+                "seq": 3
+              },
+              {
+                "key": "captureResponse",
+                "value": false,
+                "colspan": 3,
+                "description": "To capture the response in SPA request.",
+                "label": "Capture Respose",
+                "controlType": "toggle",
+                "seq": 4
+              },
+              {
+                "key": "filters",
+                "label": "Filter Entries",
+                "controlType": "json",
+                "required": true,
+                "fields": [
+                  {
+                    "key": "mode",
+                    "label": "Mode",
+                    "colspan": 3,
+                    "description": "Blacklist- If we select blacklist we cannot see any request in XHR calls.Whitelist- If we select whitelist we can see the request in XHR calls.",
+                    "controlType": "select",
+                    "type": "text",
+                    "validators": {
+                      "required": true
+                    },
+                    "options": [
+                      {
+                        "label": "Blacklist",
+                        "value": "blacklist"
+                      },
+                      {
+                        "label": "Whitelist",
+                        "value": "whitelist"
+                      }
+                    ]
+                  },
+                  {
+                    "key": "entry",
+                    "label": "Entries",
+                    "value": [],
+                    "controlType": "jsonarray",
+                    "fields": [
+                      {
+                        "key": "domain",
+                        "label": "Domain",
+                        "description": "Full or partial name of the domain.",
+                        "value": "",
+                        "controlType": "input",
+                        "colspan": 3,
+                        "type": "text",
+                        "validators": {
+                          "required": false
+                        }
+                      },
+                      {
+                        "key": "domain_regex",
+                        "label": "Domain Pattern",
+                        "description": "Regular expression for domain name",
+                        "value": "",
+                        "colspan": 3,
+                        "required": false,
+                        "controlType": "input",
+                        "type": "text",
+                        "validaton": {
+                          "required": false
+                        }
+                      },
+                      {
+                        "key": "path",
+                        "label": "Path",
+                        "description": "Full or partial Path.",
+                        "value": "",
+                        "colspan": 3,
+                        "required": false,
+                        "controlType": "input",
+                        "type": "text",
+                        "validaton": {
+                          "required": false
+                        }
+                      },
+                      {
+                        "key": "path_regex",
+                        "label": "Path Pattern",
+                        "description": "Regular expression matching Path.",
+                        "value": "",
+                        "colspan": 3,
+                        "type": "text",
+                        "controlType": "input",
+                        "validators": {
+                          "required": false
+                        }
+                      }
+                    ]
+                  }
+                ]
               }
-            ],
-            "validators": {}
+            ]
           }
         ]
       }
     ]
   },
   {
-    "formName": "Backup and Cleanup Setting",
-    "key": "Backup and Cleanup Setting",
-    "icon": "fa fa-jsfiddle",
+    "formName": "ErrorTracing",
+    "key": "ErrorTracing",
+    "description": "Js Errors of application will be captured by this feature",
     "fields": [
       {
-        "controlType": "custom",
-        "key": "backup",
+        "key": "enabled",
+        "description": "Turn On to capture the Js Errors of application",
+        "value": true,
+        "label": "Enabled",
+        "controlType": "toggle",
+        "seq": 0
+      },
+      {
+        "key": "triggerEvent",
+        "value": true,
+        "label": "Trigger Event",
+        "colspan": 3,
+        "controlType": "toggle",
+        "type": "boolean",
+        "decription": "Trigger JSError event on js error",
+        "seq": 0
+      },
+      {
+        "key": "logStackTrace",
+        "value": true,
+        "description": "It is used to log stack strace in case of any failure",
+        "colspan": 3,
+        "label": "Log Stack Trace",
+        "controlType": "toggle",
+        "decription": "Enable to log stack trace when js error occures",
+        "seq": 0
+      },
+      {
+        "key": "filterCrossOriginError",
+        "value": true,
+        "colspan": 3,
+        "label": "Filter Cross origin JS Error",
+        "description": "This mode will disable cross origin js error capturing.",
+        "controlType": "toggle",
+        "seq": 0
+      },
+      {
+        "key": "maxErrorPerPage",
+        "value": 5,
+        "description": "It define maximum error which can occure on single page.",
+        "colspan": 2,
+        "label": "Maximum Error Per Page",
+        "controlType": "input",
+        "type": "number",
+        "seq": 0,
+        "validators": {
+          "required": true
+        }
+      },
+      {
+        "key": "maxStackFrame",
+        "value": 10,
+        "description": "Max stack size to be captured for JS Error",
+        "colspan": 2,
+        "label": "Max Stack Frame",
+        "controlType": "input",
+        "type": "number",
+        "seq": 0,
+        "validators": {
+          "min": 5,
+          "required": true,
+          "max": 10000
+        }
+      },
+      {
+        "key": "filter",
+        "controlType": "json",
+        "label": "Filter",
+        "decription": "Filtering will enable to capture JS error for given percentage of pages only. ",
+        "seq": 1,
+        "fields": [
+          {
+            "key": "pct",
+            "value": 100,
+            "label": "Filter(%)",
+            "controlType": "slider",
+            "type": "number",
+            "seq": 8,
+            "validators": {
+              "min": 10,
+              "required": true,
+              "max": 100
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "formName": "UserTiming",
+    "key": "UserTiming",
+    "description": "Usertiming interface captures the mark and measure events of the browser, configured by the application's developer at some point",
+    "fields": [
+      {
+        "key": "enabled",
+        "value": false,
+        "description": "UserTiming is captured when the mode is enabled.",
+        "label": "Enabled",
+        "controlType": "toggle",
+        "seq": 0
+      }
+    ]
+  },
+  {
+    "formName": "ABTesting",
+    "key": "ABTesting",
+    "description": "A/B testing (sometimes called split testing) is comparing two versions of a web page to see which one performs better.",
+    "fields": [
+      {
+        "key": "enabled",
+        "value": false,
+        "description": "Turn On To Capture The AB Testing data",
+        "label": "Enabled",
+        "controlType": "toggle",
+        "seq": 0
+      },
+      {
+        "key": "v",
+        "label": "Variation",
+        "controlType": "jsonarray",
+        "value": [],
+        "seq": 0,
+        "readonly": true,
+        "fields": [
+          {
+            "key": "i",
+            "value": "",
+            "label": "Variation ID",
+            "controlType": "number",
+            "type": "number",
+            "dbtable": "nvvariationmetadatatable",
+            "dbcolumn": "variationid",
+            "readOnly": true,
+            "seq": 1
+          },
+          {
+            "key": "pi",
+            "value": "",
+            "label": "PageList",
+            "controlType": "input",
+            "type": "text",
+            "dbtable": "nvvariationmetadatatable",
+            "dbcolumn": "pagelist",
+            "readOnly": true,
+            "seq": 0
+          },
+          {
+            "key": "pct",
+            "value": 0,
+            "label": "Traffic(%)",
+            "description": "Traffic % for which this variation will be enabled.",
+            "controlType": "input",
+            "type": "number",
+            "dbtable": "nvvariationmetadatatable",
+            "dbcolumn": "traffic",
+            "readOnly": true,
+            "seq": 0
+          },
+          {
+            "key": "url",
+            "value": "",
+            "label": "URL",
+            "controlType": "input",
+            "type": "text",
+            "required": true,
+            "dbtable": "nvvariationmetadatatable",
+            "dbcolumn": "url",
+            "seq": 0
+          },
+          {
+            "key": "r",
+            "label": "Variation Rule",
+            "description": "Rule for variation",
+            "controlType": "input",
+            "dbtable": "nvvariationmetadatatable",
+            "dbcolumn": "command",
+            "type": "json",
+            "colspan": 12
+          },
+          {
+            "key": "g",
+            "value": "",
+            "label": "Variation Goal",
+            "description": "Goal of Variation",
+            "controlType": "json",
+            "required": true,
+            "dbtable": "nvvariationmetadatatable",
+            "dbcolumn": "goalid",
+            "jointable": "nvgoalmetadatatable",
+            "joincolumn": "goalid",
+            "seq": 0,
+            "fields": [
+              {
+                "key": "type",
+                "label": "Goal Type",
+                "controlType": "input",
+                "type": "text",
+                "value": -1,
+                "dbtable": "nvgoalmetadatatable",
+                "dbcolumn": "type",
+                "seq": 0
+              },
+              {
+                "key": "mode",
+                "label": "Mode",
+                "controlType": "input",
+                "type": "text",
+                "value": -1,
+                "dbtable": "nvgoalmetadatatable",
+                "dbcolumn": "mode",
+                "seq": 0
+              },
+              {
+                "key": "v1",
+                "label": "Argument 1",
+                "controlType": "input",
+                "type": "text",
+                "value": "",
+                "dbtable": "nvgoalmetadatatable",
+                "dbcolumn": "value1",
+                "seq": 0
+              },
+              {
+                "key": "v2",
+                "label": "Argument 2",
+                "controlType": "input",
+                "type": "text",
+                "value": "",
+                "dbtable": "nvgoalmetadatatable",
+                "dbcolumn": "value2",
+                "required": false,
+                "seq": 0
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "formName": "EQueue",
+    "key": "EQueue",
+    "description": "This plugin will encode that data and will send as useraction record to NV Server",
+    "fields": [
+      {
+        "key": "enabled",
+        "value": false,
+        "label": "Enabled",
+        "description": "Turn on to capture the equeue request .",
+        "controlType": "toggle",
+        "seq": 0
+      },
+      {
+        "key": "libraryPath",
         "value": "",
-        "route": "backup"
+        "colspan": 3,
+        "description": "Path of encryption library in EQueue Plugin If rsaEncryption is enabled",
+        "label": "Library Path",
+        "controlType": "input",
+        "type": "text",
+        "seq": 1,
+        "validators": {
+          "required": true
+        }
+      }
+    ]
+  },
+  {
+    "formName": "FEEDBACK",
+    "key": "FEEDBACK",
+    "description": "This plugin is used to capture the FeedBack Data",
+    "fields": [
+      {
+        "key": "mode",
+        "value": false,
+        "label": "Enabled",
+        "description": "Feedback request is captured when the mode is enabled.",
+        "controlType": "toggle",
+        "seq": 0
+      },
+      {
+        "key": "feedbackPosition",
+        "value": "bottom",
+        "description": "Position of Send Feedback button on Web Application",
+        "label": "feedbackPosition",
+        "controlType": "select",
+        "type": "text",
+        "colspan": 3,
+        "options": [
+          {
+            "label": "Bottom",
+            "value": "bottom"
+          },
+          {
+            "label": "Left",
+            "value": "left"
+          },
+          {
+            "label": "Right",
+            "value": "right"
+          },
+          {
+            "label": "Top",
+            "value": "top"
+          }
+        ],
+        "seq": 1,
+        "validators": {
+          "required": true
+        }
+      },
+      {
+        "key": "pluginfbjs_url",
+        "value": "",
+        "colspan": 12,
+        "label": "Feedback Plugin URL",
+        "description": "To specify the feedback plugin url in feedback form.",
+        "controlType": "input",
+        "type": "text",
+        "validators": {
+          "required": true,
+          "pattern": "^(?:http(s)?:\\\/\\\/)?[\\\/\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:\/\/?#[\\]@!\\$&'\\(\\)\\*\\+,;=.]+$"
+        },
+        "seq": 1
+      }
+    ]
+  },
+  {
+    "formName": "SCA",
+    "key": "SCA",
+    "description": "Secure client authentication",
+    "fields": [
+      {
+        "key": "enabled",
+        "value": false,
+        "label": "Enabled",
+        "description": "We can capture the client authentication records  when the mode is enabled",
+        "controlType": "toggle",
+        "seq": 0
+      },
+      {
+        "key": "encryption",
+        "value": false,
+        "label": "Encryption",
+        "description": " Used to encrypt the data.",
+        "controlType": "toggle",
+        "seq": 0
+      }
+    ]
+  },
+  {
+    "formName": "Cross Origin",
+    "key": "CrossOrigin",
+    "description": "This plugin will allow to capture ocx data from multiple domain and merge them in one single session. It will load an intermediate iframe and will copy all the cookies to that iframe. ",
+    "fields": [
+      {
+        "key": "enabled",
+        "label": "Enabled",
+        "description": "Turn On to capture ocx data from multiple domain",
+        "controlType": "toggle",
+        "value": false,
+        "seq": 0
+      },
+      {
+        "key": "group",
+        "label": "Group",
+        "description": "A Common name of all the origin for which sessions need to be merged. It should be same in configuraiton of all the origins. Eg. ToursGroup",
+        "controlType": "input",
+        "type": "text",
+        "value": "",
+        "colspan": 3,
+        "validators": {
+          "required": true
+        }
+      },
+      {
+        "key": "frame_url",
+        "label": "Frame URL",
+        "description": "URL of intermediate frame. It should be same for all the origins.",
+        "controlType": "input",
+        "type": "text",
+        "colspan": 12,
+        "value": "",
+        "validators": {
+          "required": true,
+          "pattern": "^(?:http(s)?:\\\/\\\/)?[\\\/\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:\/\/?#[\\]@!\\$&'\\(\\)\\*\\+,;=.]+$"
+        }
+      }
+    ]
+  },
+  {
+    "formName": "FA",
+    "key": "FA",
+    "description": "Form analytics captures user involvment with the forms of web application.",
+    "fields": [
+      {
+        "key": "enabled",
+        "label": "Enabled",
+        "description": "Turn On to Capture the Form Analytics Data",
+        "controlType": "toggle",
+        "value": false,
+        "seq": 0
+      }
+    ]
+  },
+  {
+    "formName": "Service Worker",
+    "key": "SW",
+    "description": "Schema for Service worker (A Service Worker is a script that your browser runs in the background)",
+    "fields": [
+      {
+        "key": "enabled",
+        "label": "Enabled",
+        "controlType": "toggle",
+        "description": "Turn On to use service worker for capturing NV information.A Service Worker is a script that your browser runs in the background",
+        "value": false,
+        "seq": 0
+      },
+      {
+        "key": "frame_url",
+        "value": "",
+        "label": "Frame URL",
+        "controlType": "input",
+        "type": "text",
+        "colspan": 12,
+        "description": "Iframe url needed for installing service worker (For Ex--> //<nv-server>/nv/<client-id>/cavnv_sw_iframe.html)",
+        "seq": 0,
+        "validators": {
+          "required": true,
+          "pattern": "^(?:http(s)?:\\\/\\\/)?[\\\/\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:\/\/?#[\\]@!\\$&'\\(\\)\\*\\+,;=.]+$"
+        }
+      },
+      {
+        "key": "sw_url",
+        "value": "",
+        "label": "Service worker URL",
+        "controlType": "input",
+        "type": "text",
+        "colspan": 12,
+        "description": " Url of service worker file which has service worker's callbacks. (For Ex--> https://<nv-server>/nv/<client-id>/sw.js)",
+        "seq": 0,
+        "validators": {
+          "required": true,
+          "pattern": "^(?:http(s)?:\\\/\\\/)?[\\\/\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:\/\/?#[\\]@!\\$&'\\(\\)\\*\\+,;=.]+$"
+        }
       }
     ]
   }

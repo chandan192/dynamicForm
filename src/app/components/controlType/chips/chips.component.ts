@@ -32,4 +32,23 @@ export class ChipsComponent implements OnInit, OnChanges {
     this.fieldData = this.fields;
     // console.log('this.fieldData : panel', this.fieldData);
   }
+
+  onBlur(e) {
+    let tmp = []
+    if (this.fieldData.hasOwnProperty('type')) {
+      if (this.fieldData.type === 'number') {
+        for (const i of this.form.get(this.fieldData.key).value) {
+          if (isNaN(i)) {
+            tmp.push(i);
+          } else {
+            tmp.push(Number(i));
+          }
+        }
+      }
+    }
+
+    this.form.get(this.fieldData.key).patchValue(tmp);
+
+    console.log(this.form.get(this.fieldData.key).value);
+  }
 }
